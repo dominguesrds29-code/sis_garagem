@@ -1,0 +1,9 @@
+@if ($page_name != 'coming_soon' && $page_name != 'contact_us' && $page_name != 'error404' && $page_name != 'error500' && $page_name != 'error503' && $page_name != 'faq' && $page_name != 'helpdesk' && $page_name != 'maintenence' && $page_name != 'privacy' && $page_name != 'auth_boxed' && $page_name != 'auth_default')
+    <!--  BEGIN FOOTER  -->
+    <div class="footer-wrapper">
+        <div class="footer-section f-section-1">
+            <p class="">Copyright © {{ date('Y') }} <a target="_blank" href="https://designreset.com">DesignReset</a>, All rights reserved.</p>
+        </div>
+    </div>
+    <!--  END FOOTER  -->
+@endif
