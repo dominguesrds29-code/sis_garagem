@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+    <link href="{{asset('plugins/notification/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('content')
 
     <div class="layout-px-spacing">
@@ -80,4 +84,25 @@
         </div>
     </div>
 
+@endsection
+
+@section('js')
+    <script>
+        @if(session()->exists('from'))
+        $(document).ready(function () {
+            showNotification('{{ session()->get('text') }}',
+                '{{ session()->get('actionTextColor') }}',
+                '{{ session()->get('backgroundColor') }}',
+                '{{ session()->get('pos') }}',
+                '{{ session()->get('duration') }}'
+            );
+        });
+        @endif
+        @if(session()->exists('title'))
+        showMessage('{{ session()->get('title') }}',
+            '{{ session()->get('text') }}',
+            '{{ session()->get('type') }}'
+        );
+        @endif
+    </script>
 @endsection

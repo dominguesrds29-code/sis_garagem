@@ -13,7 +13,7 @@ class ValidateData implements IValidator
 
         //Send failed response if request is not valid
         if ($validator->fails()) {
-            return $validator->messages();
+            return $validator;
         }
         return [];
     }

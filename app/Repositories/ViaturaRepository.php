@@ -23,12 +23,19 @@ class ViaturaRepository implements IViaturaRepository
 
 	public function get($id)
 	{
-		// TODO: Implement get() method.
+		return Viatura::find($id);
 	}
 
 	public function create($data)
 	{
-		// TODO: Implement create() method.
+		Viatura::create([
+			'modelo' => $data->modelo,
+			'combustivel' => implode(',', $data->combustivel),
+			'kilometragem' => $data->kilometragem,
+			'situacao' => $data->situacao,
+		]);
+
+		return true;
 	}
 
 	public function update($data, $id)
@@ -43,11 +50,24 @@ class ViaturaRepository implements IViaturaRepository
 
 	public function isValid($data, $id = null)
 	{
-		// TODO: Implement isValid() method.
+		if(!$this->validateErrors = $this->validateData->check($data, $this->formValidate())){
+			return true;
+		}
+
+		return false;
 	}
 
 	public function getValidateErrors()
 	{
-		// TODO: Implement getValidateErrors() method.
+		return $this->validateErrors;
+	}
+
+	private function formValidate(){
+		return [
+			'modelo' => 'required',
+			'combustivel' => 'required',
+			'situacao' => 'required|in:Ativa,Recolhida',
+			'kilometragem' => 'sometimes|integer',
+		];
 	}
 }

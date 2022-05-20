@@ -132,3 +132,59 @@ function GetIEVersion() {
   else
     return 0; //It is not IE
 }
+
+/*
+================================================
+|              Scripts Nativos                 |
+================================================
+*/
+
+feather.replace();
+
+function showNotification(text, actionTextColor, backgroundColor, pos, duration) {
+    Snackbar.show({
+        text: text,
+        actionTextColor: actionTextColor,
+        backgroundColor: backgroundColor,
+        pos: pos,
+        duration: duration,
+    });
+}
+
+function showConfirm(title, text, type, okButton, cancelButton, route) {
+    Swal.fire({
+        title: title,
+        text: text,
+        type: type,
+        showCancelButton: true,
+        confirmButtonText: okButton,
+        cancelButtonText: cancelButton,
+        confirmButtonColor: '#00dd55',
+        cancelButtonColor: '#dd4b39',
+        reverseButtons: true,
+        preConfirm: () => {
+            return $.ajax({
+                url: route,
+                type: 'DELETE',
+                dataType: 'JSON',
+            });
+        },
+        showLoaderOnConfirm: true,
+        allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+        if (result.value) {
+            Swal.fire(result.value.message.title, result.value.message.text, result.value.message.type);
+            $('tr[id="' + result.value.id + '"]').fadeOut('slow', function () {
+                $(this).remove();
+            })
+        }
+    });
+}
+
+function showMessage(title, text, type) {
+    Swal.fire({
+        title: title,
+        text: text,
+        type: type
+    });
+}

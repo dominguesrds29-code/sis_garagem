@@ -10,7 +10,7 @@
                     </a>
                 </li>
                 <li class="nav-item theme-text">
-                    <a href="/analytics" class="nav-link"> CORK </a>
+                    <a href="/analytics" class="nav-link"> {{ env('APP_NAME') }} </a>
                 </li>
             </ul>
 

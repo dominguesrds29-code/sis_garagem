@@ -13,6 +13,8 @@
 </script>
 <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
 <script src="{{asset('plugins/highlight/highlight.pack.js')}}"></script>
+<script src="{{asset('plugins/font-icons/feather/feather.min.js')}}"></script>
+<script src="{{asset('plugins/notification/snackbar/snackbar.min.js')}}"></script>
 <script src="{{asset('assets/js/custom.js')}}"></script>
 @endif
 <!-- END GLOBAL MANDATORY SCRIPTS -->
@@ -36,7 +38,6 @@
     @case('listar_viaturas')
       {{-- App Contact --}}
       <script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-      <script src="{{asset('assets/js/apps/contact.js')}}"></script>
       @break
 
     @case('mailbox')

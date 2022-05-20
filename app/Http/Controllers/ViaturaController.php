@@ -62,7 +62,20 @@ class ViaturaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($this->Notify);
+        
+        $data = $request->only('modelo', 'combustivel', 'situacao', 'kilometragem');
+        if(!$this->viaturaRepository->isValid($data)){
+            return redirect()->route('viatura.create')
+                        ->withErrors($this->viaturaRepository->getValidateErrors())
+                        ->withInput();
+        }
+
+        $this->viaturaRepository->create($request);
+
+        
+
+        return redirect()->route('viatura.index')->with($this->Notify->success('Viatura cadastrada com sucesso!')->render());
     }
 
     /**
