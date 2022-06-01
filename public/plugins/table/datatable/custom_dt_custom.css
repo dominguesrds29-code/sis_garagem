@@ -106,6 +106,10 @@ table.dataTable {
   color: #e7515a;
   border: 2px dashed #e7515a;
 }
+.style-3 .badge-success {
+  color: #8dbf42;
+  border: 2px dashed #8dbf42;
+}
 .style-3 .table-controls {
   padding: 0;
 }

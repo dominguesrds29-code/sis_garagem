@@ -1,99 +1,112 @@
 @extends('layouts.app')
 
 @section('css')
-    <link href="{{asset('plugins/notification/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_custom.css')}}">
 @endsection
 
 @section('content')
-
     <div class="layout-px-spacing">
-        <div class="row layout-spacing layout-top-spacing" id="cancel-row">
+        <div class="row layout-top-spacing">
             <div class="col-lg-12">
-                <div class="widget-content searchable-container list">
-
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search layout-spacing align-self-center">
-                            <form class="form-inline my-2 my-lg-0">
-                                <div class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                    <input type="text" class="form-control product-search" id="input-search" placeholder="Procurar Viaturas...">
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center layout-spacing align-self-center">
-                            <div class="d-flex justify-content-sm-end justify-content-center">
-                                <a id="btn-add-contact" href="{{ route('viatura.create') }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></a>
-
-                                <div class="switch align-self-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list view-list active-view"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid view-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                                </div>
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-content widget-content-area">
+                        <div class="row mb-3">
+                            <div class="col-xl-9 col-md-9 col-sm-9 col-9">
+                                <h4 class="d-inline-block">Lista de Viaturas</h4>
                             </div>
+                            <div class="col-md-3 col-sm-3 col-3">
+                                <a href="{{ route('viatura.create') }}"
+                                   class="btn btn-outline-primary btn-rounded btn-lg float-right">Nova Viatura</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive mb-4">
+                            <table id="data-table" class="table style-3  table-hover data-table">
+                                <thead>
+                                <tr>
+                                    <th class="checkbox-column text-center"> ID</th>
+                                    <th>Modelo</th>
+                                    <th class="text-center">Combustível</th>
+                                    <th class="text-center">Kilometragem</th>
+                                    <th class="text-center">Situação</th>
+                                    <th class="text-center">Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($viaturas as $viatura)
+                                    <tr id="{{ $viatura->id }}">
+                                        <td class="checkbox-column text-center"> {{ $viatura->id }}</td>
+                                        <td>{{ $viatura->modelo }}</td>
+                                        <td class="text-center">{{ $viatura->combustivel }}</td>
+                                        <td class="text-center">{{ $viatura->kilometragem }}</td>
+                                        <td class="text-center">{{ $viatura->situacao }}</td>
+                                        <td class="text-center">
+                                            <ul class="table-controls">
+                                                <li class="m-2">
+                                                    <a href="{{ route('viatura.edit', $viatura->id) }}"
+                                                       class="bs-tooltip"
+                                                       data-toggle="tooltip"
+                                                       data-placement="top" title="" data-original-title="Editar">
+                                                        <i data-feather="edit-2" class="p-1 br-6 mb-1"></i>
+                                                    </a></li>
+
+                                                <li class="m-2">
+                                                    <a href="javascript:void(0);" class="bs-tooltip desactive-viatura"
+                                                       data-action="{{ route('viatura.desactivate', $viatura->id) }}"
+                                                       data-toggle="tooltip"
+                                                       data-placement="top" title=""
+                                                       data-original-title="Desativar Viatura">
+                                                        <i data-feather="x-octagon" class="p-1 br-6 mb-1"></i>
+                                                    </a></li>
+
+                                                <li class="m-2">
+                                                    <a href="javascript:void(0);" class="bs-tooltip del-viatura"
+                                                       data-action="{{ route('viatura.destroy', $viatura->id) }}"
+                                                       data-toggle="tooltip"
+                                                       data-placement="top" title=""
+                                                       data-original-title="Excluir Viatura">
+                                                        <i data-feather="trash-2" class="p-1 br-6 mb-1"></i>
+                                                    </a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
-                    <div class="searchable-items list">
-                        <div class="items items-header-section">
-                            <div class="item-content" style="justify-content: space-around;">
-                                <div class="">
-                                    <h4>Modelo</h4>
-                                </div>
-                                <div class="user-email">
-                                    <h4>Combustível</h4>
-                                </div>
-                                <div class="user-location">
-                                    <h4>Kilometragem</h4>
-                                </div>
-                                <div class="user-phone">
-                                    <h4 style="margin-left: 3px;">Situação</h4>
-                                </div>
-                                <div class="action-btn">
-                                </div>
-                            </div>
-                        </div>
-                        @foreach($viaturas as $viatura)
-                        <div class="items">
-                            <div class="item-content" style="justify-content: space-between;">
-                                <div class="user-profile">
-                                    <div class="user-meta-info">
-                                        <p class="user-name">{{ $viatura->modelo }}</p>
-                                    </div>
-                                </div>
-                                <div class="user-email">
-                                    <p style="color: #3b3f5c; font-size:  15px;">{{ $viatura->combustivel }}</p>
-                                </div>
-                                <div class="user-location">
-                                    <p style="color: #3b3f5c; font-size:  15px;">{{ $viatura->kilometragem }}</p>
-                                </div>
-                                <div class="user-phone">
-                                    <p style="color: {{ (($viatura->situaçao == 'Recolhida') ? '#FAA' : '#3b3f5c') }}; font-size:  15px;">{{ $viatura->situacao }}</p>
-                                </div>
-                                <div class="action-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 edit"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('js')
     <script>
-        @if(session()->exists('from'))
+        $(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(document).on('click', '.desactive-viatura', function () {
+                const route = $(this).data('action');
+                showConfirm('Desativação de Viatura', 'Deseja realmente desativar esta Viatura?', 'question', 'Confirmar', 'Cancelar', route, 'PUT');
+            });
+
+            $(document).on('click', '.del-viatura', function () {
+                const route = $(this).data('action');
+                showConfirm('Excluir Viatura', 'Deseja realmente excluir esta Viatura?', 'question', 'Confirmar', 'Cancelar', route, 'DELETE');
+            })
+        });
+
+        @if(session()->exists('pos'))
         $(document).ready(function () {
             showNotification('{{ session()->get('text') }}',
-                '{{ session()->get('actionTextColor') }}',
                 '{{ session()->get('backgroundColor') }}',
                 '{{ session()->get('pos') }}',
+                '{{ session()->get('actionText') }}',
+                '{{ session()->get('actionTextColor') }}',
                 '{{ session()->get('duration') }}'
             );
         });

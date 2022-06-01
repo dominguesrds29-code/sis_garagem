@@ -15,7 +15,7 @@ class Controller extends BaseController
 
     protected $Notify;
     protected $Message;
-    
+
     public function __construct() {
         $this->Notify = new Notify();
         $this->Message = new Message();

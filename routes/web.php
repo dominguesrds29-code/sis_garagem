@@ -21,8 +21,17 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'] , function() {
 
     // Viaturas
+    Route::get('/viatura/history', [ViaturaController::class, 'history'])->name('viatura.history');
+    Route::put('/viatura/activate/{viatura}', [ViaturaController::class, 'activate'])->name('viatura.activate');
+    Route::put('/viatura/desactivate/{viatura}', [ViaturaController::class, 'desactivate'])->name('viatura.desactivate');
     Route::get('/viatura/solicitar', [ViaturaController::class, 'solicitarViatura'])->name('solicitar.viatura');
     Route::resource('viatura', 'ViaturaController');
+
+    // Motoristas
+    Route::get('/motorista/history', [MotoristaController::class, 'history'])->name('motorista.history');
+    Route::put('/motorista/activate/{motorista}', [MotoristaController::class, 'activate'])->name('motorista.activate');
+    Route::put('/motorista/desactivate/{motorista}', [MotoristaController::class, 'desactivate'])->name('motorista.desactivate');
+    Route::resource('motorista', 'MotoristaController');
 
 });
 

@@ -6,6 +6,8 @@ interface IDefaultRepository
 {
     public function list();
 
+    public function history();
+
     public function get($id);
 
     public function create($data);
@@ -14,7 +16,7 @@ interface IDefaultRepository
 
     public function delete($id);
 
-    public function isValid($data, $id = null);
+    public function isValid($data);
 
     public function getValidateErrors();
 }
