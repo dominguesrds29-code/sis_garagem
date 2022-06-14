@@ -14,12 +14,7 @@ class DefaultRepository implements IDefaultRepository
 
     public function list()
     {
-        return $this->Entity->active()->get();
-    }
-
-    public function history()
-    {
-        return $this->Entity->inactive()->get();
+        return $this->Entity->all();
     }
 
     public function get($id)

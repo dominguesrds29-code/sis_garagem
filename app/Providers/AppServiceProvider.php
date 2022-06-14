@@ -5,10 +5,12 @@ namespace App\Providers;
 use App\Application\ValidateData;
 use App\Interfaces\IDefaultRepository;
 use App\Interfaces\IMotoristaRepository;
+use App\Interfaces\IUserRepository;
 use App\Interfaces\IValidator;
 use App\Interfaces\IViaturaRepository;
 use App\Repositories\DefaultRepository;
 use App\Repositories\MotoristaRepository;
+use App\Repositories\UserRepository;
 use App\Repositories\ViaturaRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             IMotoristaRepository::class,
             MotoristaRepository::class
+        );
+        $this->app->bind(
+            IUserRepository::class,
+            UserRepository::class
         );
     }
 

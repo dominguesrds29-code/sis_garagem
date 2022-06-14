@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IUserRepository;
 use App\Interfaces\IViaturaRepository;
 use App\Viatura;
 use Illuminate\Http\Request;
@@ -10,14 +11,19 @@ use Illuminate\Http\Response;
 class ViaturaController extends Controller
 {
     private $viaturaRepository;
+    private $userRepository;
 
     /**
      * @param $viaturaRepository
      */
-    public function __construct(IViaturaRepository $viaturaRepository)
+    public function __construct(
+        IViaturaRepository $viaturaRepository,
+        IUserRepository $userRepository
+    )
     {
         parent::__construct();
         $this->viaturaRepository = $viaturaRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -176,7 +182,11 @@ class ViaturaController extends Controller
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
         ];
-        return response()->view('viaturas.request')->with($data);
+
+
+        return view('viaturas.request',[
+            'users' => $this->userRepository->list()
+        ])->with($data);
     }
 
     /**

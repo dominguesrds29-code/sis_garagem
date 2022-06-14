@@ -6,8 +6,6 @@ interface IDefaultRepository
 {
     public function list();
 
-    public function history();
-
     public function get($id);
 
     public function create($data);
