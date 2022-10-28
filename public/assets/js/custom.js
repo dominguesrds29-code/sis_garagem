@@ -139,17 +139,16 @@ function GetIEVersion() {
 ================================================
 */
 
-function showConfirm(title, text, type, okButton, cancelButton, route, method) {
+function showConfirm(title, text, type, okButton, cancelButton, route, method, reload = false) {
     Swal.fire({
         title: title,
-        text: text,
+        html: text,
         type: type,
         showCancelButton: true,
         confirmButtonText: okButton,
         cancelButtonText: cancelButton,
         confirmButtonColor: '#1abc9c',
         cancelButtonColor: '#dd4b39',
-        cancelButtonTextColor: '#FFF',
         reverseButtons: true,
         preConfirm: () => {
             return $.ajax({
@@ -165,10 +164,17 @@ function showConfirm(title, text, type, okButton, cancelButton, route, method) {
             if(result.value.error){
                 Swal.fire(result.value.error.title, result.value.error.text, result.value.error.type);
             } else {
-                Swal.fire(result.value.message.title, result.value.message.text, result.value.message.type);
-                $('tr[id="' + result.value.id + '"]').fadeOut('slow', function () {
-                    $(this).remove();
-                })
+                if(reload == true){
+                    Swal.fire(result.value.message.title, result.value.message.text, result.value.message.type).then((result) => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire(result.value.message.title, result.value.message.text, result.value.message.type);
+                    $('tr[id="' + result.value.id + '"]').fadeOut('slow', function () {
+                        $(this).remove();
+                    })
+                }
+
             }
         }
     });
@@ -177,7 +183,7 @@ function showConfirm(title, text, type, okButton, cancelButton, route, method) {
 function showMessage(title, text, type) {
     Swal.fire({
         title: title,
-        text: text,
+        html: text,
         type: type
     });
 }

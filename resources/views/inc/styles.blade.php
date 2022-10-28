@@ -89,5 +89,8 @@
     {{-- Elements --}}
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/elements/avatar.css')}}"/>
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/elements/breadcrumb.css')}}"/>
+
+    {{-- Custom --}}
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/custom.css')}}"/>
 @endswitch
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->

@@ -26,4 +26,24 @@ class ViaturaRepository extends DefaultRepository implements IViaturaRepository
         $this->Entity->find($id)->update(['situacao' => $this->Entity::INACTIVE]);
         return true;
     }
+
+    public function listActive()
+    {
+        return $this->Entity->active()->get();
+    }
+
+    public function history()
+    {
+        return $this->Entity->inactive()->get();
+    }
+
+    public function apiListActive()
+    {
+        return $this->Entity->select(['id','modelo'])->get()->map(function ($item){
+            return [
+                'id' => $item->id,
+                'modelo' => $item->modelo,
+            ];
+        });
+    }
 }

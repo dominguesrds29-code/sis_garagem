@@ -14,7 +14,7 @@ class Notify
 
     function __construct()
     {
-        $this->pos = 'bottom-right';
+        $this->pos = 'top-right';
         $this->actionText = 'OK';
         $this->actionTextColor = '#FFF';
         $this->duration = 5000;

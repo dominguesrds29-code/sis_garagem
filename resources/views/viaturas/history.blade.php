@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="table-responsive mb-4">
-                            <table id="data-table" class="table style-3  table-hover data-table">
+                            <table id="data-table" class="table style-3 table-hover">
                                 <thead>
                                 <tr>
                                     <th class="checkbox-column text-center"> ID</th>
@@ -28,27 +28,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($viaturas as $viatura)
-                                    <tr id="{{ $viatura->id }}">
-                                        <td class="checkbox-column text-center"> {{ $viatura->id }}</td>
-                                        <td>{{ $viatura->modelo }}</td>
-                                        <td class="text-center">{{ $viatura->combustivel }}</td>
-                                        <td class="text-center">{{ $viatura->kilometragem }}</td>
-                                        <td class="text-center">{{ $viatura->situacao }}</td>
-                                        <td class="text-center">
-                                            <ul class="table-controls">
-                                                <li class="m-2">
-                                                    <a href="javascript:void(0);" class="bs-tooltip del-viatura"
-                                                       data-action="{{ route('viatura.activate', $viatura->id) }}"
-                                                       data-toggle="tooltip"
-                                                       data-placement="top" title=""
-                                                       data-original-title="Reativar Viatura">
-                                                        <i data-feather="refresh-cw" class="p-1 br-6 mb-1"></i>
-                                                    </a></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -68,10 +48,14 @@
                 }
             });
 
-            $(document).on('click', '.del-viatura', function () {
+            $(document).on('click', '.active-item', function () {
                 const route = $(this).data('action');
                 showConfirm('Reativação de Viatura', 'Deseja realmente reativar esta Viatura?', 'question', 'Confirmar', 'Cancelar', route, 'PUT');
-            })
+            });
+
+            $('#data-table').DataTable(
+                {!! json_encode($config) !!}
+            );
         });
 
         @if(session()->exists('pos'))
