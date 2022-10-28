@@ -25,7 +25,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                
+
                             </div>
                             <div class="form-row mb-2">
                                 <div class="form-group col-md-5">
@@ -41,9 +41,9 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>                           
+                                </div>
                                 <div class="form-group col-md-4">
-                                    <label>Situação</label>                            
+                                    <label>Situação</label>
                                     <select class="placeholder js-states form-control @error('situacao') is-invalid @enderror" name="situacao">
                                         <option value="">Selecione uma opção...</option>
                                         <option value="Ativa">Ativa</option>
@@ -65,13 +65,13 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>                          
-                            </div> 
+                                </div>
+                            </div>
                             <div class="form-group col-md-3 offset-md-9">
                                 <button class="btn btn-primary mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg> Cadastrar
                                 </button>
-                                <a class="btn btn-danger" href="{{ route('viatura.index') }}">Cancelar</a>
+                                <a class="btn btn-danger" href="{{ route('viatura.index') }}">Sair</a>
                             </div>
                         </form>
                     </div>
@@ -84,8 +84,19 @@
 <script src="{{ asset('plugins/select2/select2.min.js') }}"></script>
 <script>
     $(".tagging").select2({
-        tags: true,
-        maximumSelectionLength: 2
+        placeholder: "Selecione as opções...",
+        allowClear: true,
+        multiple: true,
+        language: {
+            noResults: function() {
+                return "Nada Encontrado!";
+            },
+            maximumSelected: function(a) {
+                var b = "Você só pode escolher " + a.maximum + " opções!";
+                return b
+            },
+        },
+        maximumSelectionLength: 2,
     });
 </script>
 @endsection

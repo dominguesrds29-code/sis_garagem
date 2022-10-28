@@ -2,28 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\IUserRepository;
 use App\Interfaces\IViaturaRepository;
+use App\Support\DataList;
 use App\Viatura;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ViaturaController extends Controller
 {
+    use DataList;
+
     private $viaturaRepository;
-    private $userRepository;
 
     /**
      * @param $viaturaRepository
      */
     public function __construct(
-        IViaturaRepository $viaturaRepository,
-        IUserRepository $userRepository
+        IViaturaRepository $viaturaRepository
     )
     {
         parent::__construct();
         $this->viaturaRepository = $viaturaRepository;
-        $this->userRepository = $userRepository;
+
+        $this->middleware('permission:viatura-list-active|viatura-list-desactive|viatura-create|viatura-edit|viatura-delete|viatura-active|viatura-desactive', ['only' => ['index','history','store']]);
+        $this->middleware('permission:viatura-create', ['only' => ['create','store']]);
+        $this->middleware('permission:viatura-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:viatura-active', ['only' => ['activate','getDatatableDesactiveList']]);
+        $this->middleware('permission:viatura-desactive', ['only' => ['desactivate','getDatatableActiveList']]);
+        $this->middleware('permission:viatura-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -39,10 +45,12 @@ class ViaturaController extends Controller
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
         ];
-        $viaturas = $this->viaturaRepository->list();
+        $heads = $this->getHeads($this->viaturaRepository->getFieldList());
+        $config = $this->getConfig($this->viaturaRepository->getFieldList(), 'viatura.activeList');
 
         return view('viaturas.index',[
-            'viaturas' => $viaturas
+            'heads' => $heads,
+            'config' => $config
         ])->with($data);
     }
 
@@ -59,10 +67,13 @@ class ViaturaController extends Controller
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
         ];
-        $viaturas = $this->viaturaRepository->history();
+
+        $heads = $this->getHeads($this->viaturaRepository->getFieldList());
+        $config = $this->getConfig($this->viaturaRepository->getFieldList(), 'viatura.inactiveList');
 
         return view('viaturas.history',[
-            'viaturas' => $viaturas
+            'heads' => $heads,
+            'config' => $config
         ])->with($data);
     }
 
@@ -149,8 +160,14 @@ class ViaturaController extends Controller
         }
 
         $this->viaturaRepository->update($request, $id);
-        return redirect()->route('viatura.edit', $id)
-            ->with($this->Notify->success('Viatura atualizada com sucesso!')->render());
+        if($request->has('onlyEdit')){
+            return redirect()->route('viatura.edit', $id)
+                ->with($this->Notify->success('Viatura atualizada com sucesso!')->render());
+        } else {
+            return redirect()->route('viatura.index')
+                ->with($this->Notify->success('Viatura atualizada com sucesso!')->render());
+        }
+
     }
 
     /**
@@ -166,27 +183,6 @@ class ViaturaController extends Controller
         $json['id'] = $id;
         $json['message'] = $this->Message->success('Exclusão concluída', 'Viatura excluída com sucesso!')->render();
         return response()->json($json);
-    }
-
-    /**
-     * Solicitar Viatura
-     *
-     * @param  \App\Viatura  $viatura
-     * @return Response
-     */
-    public function solicitarViatura(Viatura $viatura)
-    {
-        $data = [
-            'category_name' => 'viatura',
-            'page_name' => 'solicitar_viatura',
-            'has_scrollspy' => 0,
-            'scrollspy_offset' => '',
-        ];
-
-
-        return view('viaturas.request',[
-            'users' => $this->userRepository->list()
-        ])->with($data);
     }
 
     /**
@@ -219,5 +215,54 @@ class ViaturaController extends Controller
         return response()->json($json);
     }
 
+    public function getDatatableActiveList(Request $request)
+    {
+        return response()->json($this->getDatatableList($request, ['situacao' => Viatura::ACTIVE],[0,1,0,1,0,0,1]));
+    }
 
+    public function getDatatableDesactiveList(Request $request)
+    {
+        return response()->json($this->getDatatableList($request, ['situacao' => Viatura::INACTIVE], [0,0,1,0,0,0,0]));
+    }
+
+    private function getDatatableList(Request $request, $condition, $buttons)
+    {
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
+
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
+
+        // Total records
+        $totalRecords = $this->viaturaRepository->getTotalRecords(null,null, $condition);
+        $totalRecordswithFilter = $this->viaturaRepository->getTotalRecords($searchValue, true, $condition);
+
+        // Fetch records
+        $records = $this->viaturaRepository->getFilteredList($searchValue, $columnName, $columnSortOrder, $start, $rowperpage, $condition);
+
+        $data_arr = [];
+        $data_arr = $this->viaturaRepository->getDataListActions($records, 'viatura', $buttons);
+
+        $dataList = [
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordswithFilter,
+            "aaData" => $data_arr
+        ];
+
+        return $dataList;
+    }
+
+    public function viaturaList()
+    {
+        return response()->json($this->viaturaRepository->apiListActive());
+    }
 }

@@ -145,6 +145,26 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'situacao' => 'situação',
+        'combustivel' => 'combustível',
+        'cnh_number' => 'número da CNH',
+        'cnh_validate' => 'validade da CNH',
+        'authorization_date' => 'validade da Autorização',
+        'cnh_category' => 'categoria da CNH',
+        'user_war_name' => 'nome do Motorista',
+        'dt_inicio' => 'data de início',
+        'hora_inicio' => 'hora de início',
+        'dt_final' => 'data de término',
+        'hora_final' => 'hora de término',
+        'motorista_id' => 'nome do motorista',
+        'itinerario' => 'itinerário',
+        'missao' => 'missão',
+        'name' => 'nome',
+        'permissions' => 'permissões',
+        'roles' => 'papéis',
+        'permission' => 'permissão',
+        'role' => 'papel',
+    ],
 
 ];

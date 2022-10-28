@@ -71,8 +71,9 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-3 offset-md-9">
+                                <input class="btn btn-success mr-2" type="submit" name="onlyEdit" value="Atualizar">
                                 <button class="btn btn-primary mr-2">
-                                    <i data-feather="check"></i> Enviar
+                                    <i data-feather="check"></i> Atualizar e Sair
                                 </button>
                                 <a class="btn btn-danger" href="{{ route('viatura.index') }}">Voltar</a>
                             </div>

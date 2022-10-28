@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableUsersAddForeignSectionId extends Migration
+class AlterTableUsersAddColumnChangepassword extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AlterTableUsersAddForeignSectionId extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('section_id')->references('id')->on('sections');
+            $table->boolean('changepassword')->after('password')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AlterTableUsersAddForeignSectionId extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_section_id_foreign');
+            $table->dropColumn('changepassword');
         });
     }
 }

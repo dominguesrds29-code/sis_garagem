@@ -16,15 +16,14 @@ class CreateMotoristasTable extends Migration
         Schema::create('motoristas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('user_war_name');
             $table->string('cnh_number');
             $table->string('cnh_category');
             $table->date('cnh_validate');
             $table->date('authorization_date');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 
@@ -35,9 +34,6 @@ class CreateMotoristasTable extends Migration
      */
     public function down()
     {
-        Schema::table('motoristas', function (Blueprint $table) {
-            $table->dropForeign('motoristas_user_id_foreign');
-        });
         Schema::dropIfExists('motoristas');
     }
 }

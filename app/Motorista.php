@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Motorista extends Model
@@ -11,7 +12,7 @@ class Motorista extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'cnh_number', 'cnh_category', 'cnh_validate', 'authorization_date', 'status'
+        'user_id', 'user_war_name', 'cnh_number', 'cnh_category', 'cnh_validate', 'authorization_date', 'status'
     ];
 
     protected $appends = ['dataValidate'];
@@ -19,9 +20,12 @@ class Motorista extends Model
     const AUTHORIZATION_ACTIVE = 1;
     const AUTHORIZATION_INACTIVE = 0;
 
-    public function user() : BelongsTo
+    public const ID_FIELD = 'id';
+    public const NAME_FIELD = 'user_war_name';
+
+    public function solicitacoes() : HasMany
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->hasMany(Solicitacao::class, 'motorista_id', 'id');
     }
 
     public function scopeActive($query)
@@ -34,15 +38,58 @@ class Motorista extends Model
         return $query->where('status', self::AUTHORIZATION_INACTIVE);
     }
 
-    public function getdataValidateAttribute()
+    public function fieldList()
     {
         return [
-            'user_id' => 'required',
-            'cnh_number' => 'required',
-            'cnh_category' => 'required',
-            'cnh_validate' => 'required|date',
-            'authorization_date' => 'required|date',
-            'status' => 'boolean',
+            ['name' => 'id', 'label' => '#', 'query' => true, 'table' => true],
+            ['name' => 'user_war_name', 'label' => 'Nome', 'query' => true, 'table' => true],
+            ['name' => 'cnh_number', 'label' => 'CNH', 'query' => true, 'table' => true],
+            ['name' => 'cnh_category', 'label' => 'Categoria', 'query' => true, 'table' => true],
+            ['name' => 'cnh_validate', 'label' => 'Validade CNH', 'query' => true, 'table' => true],
+            ['name' => 'authorization_date', 'label' => 'Validade Autorização', 'query' => true, 'table' => true],
         ];
     }
+
+    public function getExCnhCategoryAttribute()
+    {
+        return explode(',', $this->cnh_category);
+    }
+
+    public function setCnhCategoryAttribute($value)
+    {
+        return $this->attributes['cnh_category'] = implode(',', $value);
+    }
+
+    public function setStatusAttribute($value)
+    {
+        $this->attributes['status'] = $value ? 1 : 0;
+    }
+
+    public function getExCnhValidateAttribute()
+    {
+        return date('d/m/Y', strtotime($this->cnh_validate));
+    }
+
+    public function getExAuthorizationDateAttribute()
+    {
+        return date('d/m/Y', strtotime($this->authorization_date));
+    }
+
+    public function getdataValidateAttribute()
+    {
+        $ignore = ',NULL,id';
+
+        if($this->id){
+            $ignore = ','.$this->id.',id';
+        }
+
+        return [
+            'user_war_name' => 'required',
+            'cnh_number' => 'required|unique:motoristas,cnh_number'.$ignore,
+            'cnh_category' => 'required',
+            'cnh_validate' => 'required|date',
+            'authorization_date' => 'required|date'
+        ];
+    }
+
 }

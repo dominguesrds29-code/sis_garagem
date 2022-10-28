@@ -18,7 +18,11 @@ class MotoristaRepository extends DefaultRepository implements IMotoristaReposit
 
     public function active($id)
     {
-        $this->Entity->find($id)->update(['status' => $this->Entity::AUTHORIZATION_ACTIVE]);
+        $auth = $this->Entity->find($id);
+        if($auth->cnh_validate < date('Y-m-d') || $auth->authorization_date < date('Y-m-d')){
+            return false;
+        }
+        $auth->update(['status' => $this->Entity::AUTHORIZATION_ACTIVE]);
         return true;
     }
 
@@ -26,5 +30,25 @@ class MotoristaRepository extends DefaultRepository implements IMotoristaReposit
     {
         $this->Entity->find($id)->update(['status' => $this->Entity::AUTHORIZATION_INACTIVE]);
         return true;
+    }
+
+    public function listActive()
+    {
+        return $this->Entity->active()->get();
+    }
+
+    public function history()
+    {
+        return $this->Entity->inactive()->get();
+    }
+
+    public function apiMotoristasList()
+    {
+        return $this->Entity->select(['id','user_war_name'])->get()->map(function ($item){
+            return [
+                'id' => $item->id,
+                'name' => $item->user_war_name,
+            ];
+        });
     }
 }

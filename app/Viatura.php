@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Viatura extends Model
@@ -18,6 +20,20 @@ class Viatura extends Model
     const ACTIVE = 'Ativa';
     const INACTIVE = 'Recolhida';
 
+    public const ID_FIELD = 'id';
+    public const NAME_FIELD = 'modelo';
+
+    public function fieldList()
+    {
+        return [
+            ['name' => 'id', 'label' => '#', 'query' => true, 'table' => true],
+            ['name' => 'modelo', 'label' => 'Modelo', 'query' => true, 'table' => true],
+            ['name' => 'combustivel', 'label' => 'Combustível', 'query' => true, 'table' => true],
+            ['name' => 'kilometragem', 'label' => 'Km', 'query' => true, 'table' => true],
+            ['name' => 'situacao', 'label' => 'Situação', 'query' => true, 'table' => true],
+        ];
+    }
+
     public function scopeActive($query)
     {
         return $query->where('situacao', self::ACTIVE);
@@ -30,8 +46,14 @@ class Viatura extends Model
 
     public function getDataValidateAttribute()
     {
+        $ignore = ',NULL,id';
+
+        if($this->id){
+            $ignore = ','.$this->id.',id';
+        }
+
         return [
-            'modelo' => 'required',
+            'modelo' => 'required|unique:viaturas,modelo'.$ignore,
             'combustivel' => 'required',
             'situacao' => 'required|in:Ativa,Recolhida',
             'kilometragem' => 'sometimes|integer',
@@ -46,5 +68,10 @@ class Viatura extends Model
     public function setCombustivelAttribute($value)
     {
         return $this->attributes['combustivel'] = implode(',', $value);
+    }
+
+    public function solicitacoes() : HasMany
+    {
+        return $this->hasMany(Solicitacao::class, 'viatura_id', 'id');
     }
 }
