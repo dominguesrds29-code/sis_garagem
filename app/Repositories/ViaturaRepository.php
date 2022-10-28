@@ -6,48 +6,44 @@ use App\Interfaces\IValidator;
 use App\Viatura;
 use App\Interfaces\IViaturaRepository;
 
-class ViaturaRepository implements IViaturaRepository
+class ViaturaRepository extends DefaultRepository implements IViaturaRepository
 {
-    private $validateData;
-    private $validateErrors;
-
-    public function __construct(IValidator $validateData)
+    public function __construct(IValidator $validateData, Viatura $entity)
     {
+        $this->Entity = $entity;
         $this->validateData = $validateData;
         $this->validateErrors = [];
     }
-	public function list()
-	{
-        return Viatura::all();
-	}
 
-	public function get($id)
-	{
-		// TODO: Implement get() method.
-	}
+    public function active($id)
+    {
+        $this->Entity->find($id)->update(['situacao' => $this->Entity::ACTIVE]);
+        return true;
+    }
 
-	public function create($data)
-	{
-		// TODO: Implement create() method.
-	}
+    public function desactive($id)
+    {
+        $this->Entity->find($id)->update(['situacao' => $this->Entity::INACTIVE]);
+        return true;
+    }
 
-	public function update($data, $id)
-	{
-		// TODO: Implement update() method.
-	}
+    public function listActive()
+    {
+        return $this->Entity->active()->get();
+    }
 
-	public function delete($id)
-	{
-		// TODO: Implement delete() method.
-	}
+    public function history()
+    {
+        return $this->Entity->inactive()->get();
+    }
 
-	public function isValid($data, $id = null)
-	{
-		// TODO: Implement isValid() method.
-	}
-
-	public function getValidateErrors()
-	{
-		// TODO: Implement getValidateErrors() method.
-	}
+    public function apiListActive()
+    {
+        return $this->Entity->select(['id','modelo'])->get()->map(function ($item){
+            return [
+                'id' => $item->id,
+                'modelo' => $item->modelo,
+            ];
+        });
+    }
 }

@@ -3,8 +3,20 @@
 namespace App\Providers;
 
 use App\Application\ValidateData;
+use App\Interfaces\IDefaultRepository;
+use App\Interfaces\IMotoristaRepository;
+use App\Interfaces\IPermissionRepository;
+use App\Interfaces\IRequestRepository;
+use App\Interfaces\IRoleRepository;
+use App\Interfaces\IUserRepository;
 use App\Interfaces\IValidator;
 use App\Interfaces\IViaturaRepository;
+use App\Repositories\DefaultRepository;
+use App\Repositories\MotoristaRepository;
+use App\Repositories\PermissionRepository;
+use App\Repositories\RequestRepository;
+use App\Repositories\RoleRepository;
+use App\Repositories\UserRepository;
 use App\Repositories\ViaturaRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,8 +34,32 @@ class AppServiceProvider extends ServiceProvider
             ValidateData::class
         );
         $this->app->bind(
+            IDefaultRepository::class,
+            DefaultRepository::class
+        );
+        $this->app->bind(
             IViaturaRepository::class,
             ViaturaRepository::class
+        );
+        $this->app->bind(
+            IMotoristaRepository::class,
+            MotoristaRepository::class
+        );
+        $this->app->bind(
+            IUserRepository::class,
+            UserRepository::class
+        );
+        $this->app->bind(
+            IRequestRepository::class,
+            RequestRepository::class
+        );
+        $this->app->bind(
+            IPermissionRepository::class,
+            PermissionRepository::class
+        );
+        $this->app->bind(
+            IRoleRepository::class,
+            RoleRepository::class
         );
     }
 

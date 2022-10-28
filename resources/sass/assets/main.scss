@@ -2170,7 +2170,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 .table > {
   tbody > tr > td {
     vertical-align: middle;
-    color: #515365;
+    color: black !important;
     font-size: 13px;
     letter-spacing: 1px;
   }
@@ -2402,14 +2402,14 @@ table {
   color: #fff;
 }
 
-/*  
+/*
     ==========================
-        Background Colors  
+        Background Colors
     ==========================
 */
 
-/*  
-    Default  
+/*
+    Default
 */
 
 .bg-primary {
@@ -2454,8 +2454,8 @@ table {
   color: #fff;
 }
 
-/*  
-    Light Background  
+/*
+    Light Background
 */
 
 .bg-light-primary {
@@ -2500,7 +2500,7 @@ table {
   color: #fff;
 }
 
-/*  
+/*
     Progress Bar
 */
 

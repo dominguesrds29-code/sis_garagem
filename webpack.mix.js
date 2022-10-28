@@ -23,73 +23,37 @@ mix.options({
 mix.sass('resources/sass/assets/structure.scss', 'public/assets/css/')
     .sass('resources/sass/assets/loader.scss', 'public/assets/css/')
     .sass('resources/sass/assets/main.scss', 'public/assets/css/')
-    .sass('resources/sass/assets/scrollspy.scss', 'public/assets/css/')
+    .sass('resources/sass/assets/scrollspyNav.scss', 'public/assets/css/')
 
-    // Apps
-   .sass('resources/sass/assets/apps/contacts.scss', 'public/assets/css/apps')
-   .sass('resources/sass/assets/apps/invoice.scss', 'public/assets/css/apps')
-   .sass('resources/sass/assets/apps/mailbox.scss', 'public/assets/css/apps')
-   .sass('resources/sass/assets/apps/mailing-chat.scss', 'public/assets/css/apps')
-   .sass('resources/sass/assets/apps/notes.scss', 'public/assets/css/apps')
-   .sass('resources/sass/assets/apps/scrumboard.scss', 'public/assets/css/apps')
-   .sass('resources/sass/assets/apps/todolist.scss', 'public/assets/css/apps')
-   
-   // Authentication
-   .sass('resources/sass/assets/authentication/form-1.scss', 'public/assets/css/authentication')
-   .sass('resources/sass/assets/authentication/form-2.scss', 'public/assets/css/authentication')
-
-   // Components
-   .sass('resources/sass/assets/components/custom-carousel.scss', 'public/assets/css/components')
-   .sass('resources/sass/assets/components/custom-countdown.scss', 'public/assets/css/components')
-   .sass('resources/sass/assets/components/custom-counter.scss', 'public/assets/css/components')
-   .sass('resources/sass/assets/components/custom-list-group.scss', 'public/assets/css/components')
-   .sass('resources/sass/assets/components/custom-media_object.scss', 'public/assets/css/components')
-   .sass('resources/sass/assets/components/custom-modal.scss', 'public/assets/css/components')
-   .sass('resources/sass/assets/components/custom-sweetalert.scss', 'public/assets/css/components')
-   .sass('resources/sass/assets/components/cards/card.scss', 'public/assets/css/components/cards')
-   .sass('resources/sass/assets/components/tabs-accordian/custom-accordions.scss', 'public/assets/css/components/tabs-accordian')
-   .sass('resources/sass/assets/components/tabs-accordian/custom-tabs.scss', 'public/assets/css/components/tabs-accordian')
-   .sass('resources/sass/assets/components/timeline/custom-timeline.scss', 'public/assets/css/components/timeline')
+    // Authentication
+    .sass('resources/sass/assets/authentication/form-1.scss', 'public/assets/css/authentication')
+    .sass('resources/sass/assets/authentication/form-2.scss', 'public/assets/css/authentication')
 
     // Element
-   .sass('resources/sass/assets/elements/alert.scss', 'public/assets/css/elements/')
-   .sass('resources/sass/assets/elements/avatar.scss', 'public/assets/css/elements/')
-   .sass('resources/sass/assets/elements/breadcrumb.scss', 'public/assets/css/elements/')
-   .sass('resources/sass/assets/elements/custom-pagination.scss', 'public/assets/css/elements/')
-   .sass('resources/sass/assets/elements/custom-tree_view.scss', 'public/assets/css/elements/')
-   .sass('resources/sass/assets/elements/infobox.scss', 'public/assets/css/elements/')
-   .sass('resources/sass/assets/elements/miscellaneous.scss', 'public/assets/css/elements/')
-   .sass('resources/sass/assets/elements/popover.scss', 'public/assets/css/elements/')
-   .sass('resources/sass/assets/elements/search.scss', 'public/assets/css/elements/')
-   .sass('resources/sass/assets/elements/tooltip.scss', 'public/assets/css/elements/')
+    .sass('resources/sass/assets/elements/alert.scss', 'public/assets/css/elements/')
+    .sass('resources/sass/assets/elements/avatar.scss', 'public/assets/css/elements/')
+    .sass('resources/sass/assets/elements/breadcrumb.scss', 'public/assets/css/elements/')
 
     // Forms
-   .sass('resources/sass/assets/forms/bootstrap-form.scss', 'public/assets/css/forms/')
-   .sass('resources/sass/assets/forms/custom-clipboard.scss', 'public/assets/css/forms/')
-   .sass('resources/sass/assets/forms/switches.scss', 'public/assets/css/forms/')
-   .sass('resources/sass/assets/forms/theme-checkbox-radio.scss', 'public/assets/css/forms/')
+    .sass('resources/sass/assets/forms/bootstrap-form.scss', 'public/assets/css/forms/')
+    .sass('resources/sass/assets/forms/custom-clipboard.scss', 'public/assets/css/forms/')
+    .sass('resources/sass/assets/forms/switches.scss', 'public/assets/css/forms/')
+    .sass('resources/sass/assets/forms/theme-checkbox-radio.scss', 'public/assets/css/forms/')
 
     // Pages
-   .sass('resources/sass/assets/pages/coming-soon/style.scss', 'public/assets/css/pages/coming-soon/')
-   .sass('resources/sass/assets/pages/error/style-400.scss', 'public/assets/css/pages/error/')
-   .sass('resources/sass/assets/pages/error/style-500.scss', 'public/assets/css/pages/error/')
-   .sass('resources/sass/assets/pages/error/style-503.scss', 'public/assets/css/pages/error/')
-   .sass('resources/sass/assets/pages/error/style-maintanence.scss', 'public/assets/css/pages/error/')
-   .sass('resources/sass/assets/pages/faq/faq.scss', 'public/assets/css/pages/faq/')
-   .sass('resources/sass/assets/pages/faq/faq2.scss', 'public/assets/css/pages/faq/')
-   .sass('resources/sass/assets/pages/privacy/privacy.scss', 'public/assets/css/pages/privacy/')
-   .sass('resources/sass/assets/pages/contact_us.scss', 'public/assets/css/pages/')
-   .sass('resources/sass/assets/pages/helpdesk.scss', 'public/assets/css/pages/')
+    .sass('resources/sass/assets/pages/error/style-400.scss', 'public/assets/css/pages/error/')
+    .sass('resources/sass/assets/pages/error/style-500.scss', 'public/assets/css/pages/error/')
+    .sass('resources/sass/assets/pages/error/style-503.scss', 'public/assets/css/pages/error/')
 
     // Tables
-   .sass('resources/sass/assets/tables/table-basic.scss', 'public/assets/css/tables/')
+    .sass('resources/sass/assets/tables/table-basic.scss', 'public/assets/css/tables/')
 
-   // Users
-   .sass('resources/sass/assets/users/account-setting.scss', 'public/assets/css/users/')
-   .sass('resources/sass/assets/users/user-profile.scss', 'public/assets/css/users/')
+    // Users
+    .sass('resources/sass/assets/users/account-setting.scss', 'public/assets/css/users/')
+    .sass('resources/sass/assets/users/user-profile.scss', 'public/assets/css/users/')
 
-   // Widgets
-   .sass('resources/sass/assets/widgets/modules-widgets.scss', 'public/assets/css/widgets/')
+    // Widgets
+    .sass('resources/sass/assets/widgets/modules-widgets.scss', 'public/assets/css/widgets/')
 
     /*
         ========================
@@ -98,81 +62,71 @@ mix.sass('resources/sass/assets/structure.scss', 'public/assets/css/')
     */
 
     // Animate
-   .sass('resources/sass/plugins/animate/animate.scss', 'public/plugins/animate/')
-   
-   // Autocomplete
-   .sass('resources/sass/plugins/autocomplete/autocomplete.scss', 'public/plugins/autocomplete/')
+    .sass('resources/sass/plugins/animate/animate.scss', 'public/plugins/animate/')
 
-   // Bootstrap Range Slider
-   .sass('resources/sass/plugins/bootstrap-range-Slider/bootstrap-slider.scss', 'public/plugins/bootstrap-range-Slider/')
-   
-   // Bootstrap Select
-   .sass('resources/sass/plugins/bootstrap-select/bootstrap-select.min.scss', 'public/plugins/bootstrap-select/')
-   
-   // Bootstrap Touchspin
-   .sass('resources/sass/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.scss', 'public/plugins/bootstrap-touchspin/')
+    // Autocomplete
+    .sass('resources/sass/plugins/autocomplete/autocomplete.scss', 'public/plugins/autocomplete/')
 
-   // Drag and Drop
-   .sass('resources/sass/plugins/drag-and-drop/dragula/dragula.scss', 'public/plugins/drag-and-drop/dragula/')
-   .sass('resources/sass/plugins/drag-and-drop/dragula/example.scss', 'public/plugins/drag-and-drop/dragula/')
-   
-   // Dropify
-   .sass('resources/sass/plugins/dropify/dropify.min.scss', 'public/plugins/dropify/')
-   
-   // Editors
-   .sass('resources/sass/plugins/editors/markdown/simplemde.min.scss', 'public/plugins/editors/markdown/')
-   .sass('resources/sass/plugins/editors/quill/quill.bubble.scss', 'public/plugins/editors/quill/')
-   .sass('resources/sass/plugins/editors/quill/quill.snow.scss', 'public/plugins/editors/quill/')
+    // Perfect Scrollbar
+    .sass('resources/sass/plugins/perfect-scrollbar/perfect-scrollbar.scss', 'public/plugins/perfect-scrollbar/')
 
-   // File Upload
-   .sass('resources/sass/plugins/file-upload/file-upload-with-preview.min.scss', 'public/plugins/file-upload/')
-   
-   // Flatpickr
-   .sass('resources/sass/plugins/flatpickr/custom-flatpickr.scss', 'public/plugins/flatpickr/')
-   
-   // Fullcalendar
-   .sass('resources/sass/plugins/fullcalendar/custom-fullcalendar.advance.scss', 'public/plugins/fullcalendar/')
-   .sass('resources/sass/plugins/fullcalendar/fullcalendar.min.scss', 'public/plugins/fullcalendar/')
-   .sass('resources/sass/plugins/fullcalendar/fullcalendar.scss', 'public/plugins/fullcalendar/')
+    // DataTable
+    .sass('resources/sass/plugins/table/datatable/custom_dt_custom.scss', 'public/plugins/table/datatable/')
+    .sass('resources/sass/plugins/table/datatable/custom_dt_html5.scss', 'public/plugins/table/datatable/')
+    .sass('resources/sass/plugins/table/datatable/custom_dt_miscellaneous.scss', 'public/plugins/table/datatable/')
+    .sass('resources/sass/plugins/table/datatable/custom_dt_multiple_tables.scss', 'public/plugins/table/datatable/')
+    .sass('resources/sass/plugins/table/datatable/datatables.scss', 'public/plugins/table/datatable/')
+    .sass('resources/sass/plugins/table/datatable/datatables-light.scss', 'public/plugins/table/datatable/')
+    .sass('resources/sass/plugins/table/datatable/dt-global_style.scss', 'public/plugins/table/datatable/')
+    .sass('resources/sass/plugins/table/datatable/dt-global_style-light.scss', 'public/plugins/table/datatable/')
 
-   // Jquery Step
-   .sass('resources/sass/plugins/jquery-step/jquery.steps.scss', 'public/plugins/jquery-step/')
-   
-   // jVector
-   .sass('resources/sass/plugins/jvector/jquery-jvectormap-2.0.3.scss', 'public/plugins/jvector/')
-   
-   // lightbox
-   .sass('resources/sass/plugins/lightbox/custom-photswipe.scss', 'public/plugins/lightbox/')
-   .sass('resources/sass/plugins/lightbox/photoswipe.scss', 'public/plugins/lightbox/')
+    // SweetAlerts
+    .sass('resources/sass/plugins/sweetalerts/sweetalert.scss', 'public/plugins/sweetalerts/')
+    .sass('resources/sass/plugins/sweetalerts/sweetalert2.min.scss', 'public/plugins/sweetalerts/')
 
-   // Loaders
-   .sass('resources/sass/plugins/loaders/custom-loader.scss', 'public/plugins/loaders/')
-   
-   // noUiSlider
-   .sass('resources/sass/plugins/noUiSlider/custom-nouiSlider.scss', 'public/plugins/noUiSlider/')
-   
-   // Perfect Scrollbar
-   .sass('resources/sass/plugins/perfect-scrollbar/perfect-scrollbar.scss', 'public/plugins/perfect-scrollbar/')
-   
-   // Pricing Table
-   .sass('resources/sass/plugins/pricing-table/css/component.scss', 'public/plugins/pricing-table/')
-   
-   // Select2
-   .sass('resources/sass/plugins/select2/select2.min.scss', 'public/plugins/select2/')
-   
-   // SweetAlerts
-   .sass('resources/sass/plugins/sweetalerts/sweetalert.scss', 'public/plugins/sweetalerts/')
-   .sass('resources/sass/plugins/sweetalerts/sweetalert2.min.scss', 'public/plugins/sweetalerts/')
+    // Tag Input
+    .sass('resources/sass/plugins/tagInput/tags-input.scss', 'public/plugins/tagInput/')
 
-   // DataTable
-   .sass('resources/sass/plugins/table/datatable/custom_dt_custom.scss', 'public/plugins/table/datatable/')
-   .sass('resources/sass/plugins/table/datatable/custom_dt_html5.scss', 'public/plugins/table/datatable/')
-   .sass('resources/sass/plugins/table/datatable/custom_dt_miscellaneous.scss', 'public/plugins/table/datatable/')
-   .sass('resources/sass/plugins/table/datatable/custom_dt_multiple_tables.scss', 'public/plugins/table/datatable/')
-   .sass('resources/sass/plugins/table/datatable/datatables.scss', 'public/plugins/table/datatable/')
-   .sass('resources/sass/plugins/table/datatable/datatables-light.scss', 'public/plugins/table/datatable/')
-   .sass('resources/sass/plugins/table/datatable/dt-global_style.scss', 'public/plugins/table/datatable/')
-   .sass('resources/sass/plugins/table/datatable/dt-global_style-light.scss', 'public/plugins/table/datatable/')
-   
-   // Tag Input
-   .sass('resources/sass/plugins/tagInput/tags-input.scss', 'public/plugins/tagInput/');
+    .scripts([
+        'resources/assets/js/libs/jquery-3.1.1.min.js',
+        'resources/bootstrap/js/popper.min.js',
+        'resources/bootstrap/js/bootstrap.js',
+    ], 'public/assets/js/libs/core.js')
+
+    .scripts('resources/plugins/table/datatable/datatables.js', 'public/plugins/table/datatable/datatables.js')
+    .scripts('resources/plugins/sweetalerts/sweetalert2.min.js', 'public/plugins/sweetalerts/sweetalert2.min.js')
+    .scripts('resources/plugins/sweetalerts/sweetalert.js', 'public/plugins/sweetalerts/sweetalert.js')
+    .scripts('resources/plugins/sweetalerts/promise-polyfill.js', 'public/plugins/sweetalerts/promise-polyfill.js')
+    .scripts('resources/plugins/blockui/jquery.blockUI.min.js', 'public/plugins/blockui/jquery.blockUI.min.js')
+    .scripts('resources/assets/js/authentication/form-1.js', 'public/assets/js/authentication/form-1.js')
+    .scripts('resources/assets/js/authentication/form-2.js', 'public/assets/js/authentication/form-2.js')
+    .scripts('resources/assets/js/loader.js', 'public/assets/js/loader.js')
+    .scripts('resources/assets/js/ui-accordions.js', 'public/assets/js/ui-accordions.js')
+    .scripts('resources/assets/js/scrollspyNav.js', 'public/assets/js/scrollspyNav.js')
+    .scripts('resources/assets/js/app.js', 'public/assets/js/app.js')
+    .scripts('resources/assets/js/custom.js', 'public/assets/js/custom.js')
+    .scripts('resources/assets/js/set-plugins.js', 'public/assets/js/set-plugins.js')
+    .scripts('resources/assets/js/quill-custom.js', 'public/assets/js/quill-custom.js')
+
+    .styles('resources/bootstrap/css/bootstrap.min.css', 'public/bootstrap/css/bootstrap.min.css')
+    .styles('resources/assets/css/plugins.css', 'public/assets/css/plugins.css')
+    .styles('resources/assets/css/app.css', 'public/assets/css/app.css')
+    .styles('resources/assets/css/elements/infobox.css', 'public/assets/css/elements/infobox.css')
+    .styles('resources/assets/css/elements/custom-accordions.css', 'public/assets/css/elements/custom-accordions.css')
+
+    .copyDirectory('resources/plugins/apex', 'public/plugins/apex')
+    .copyDirectory('resources/plugins/blockui', 'public/plugins/blockui')
+    .copyDirectory('resources/plugins/bootstrap-select', 'public/plugins/bootstrap-select')
+    .copyDirectory('resources/plugins/select2', 'public/plugins/select2')
+    .copyDirectory('resources/plugins/flatpickr', 'public/plugins/flatpickr')
+    .copyDirectory('resources/plugins/font-icons', 'public/plugins/font-icons')
+    .copyDirectory('resources/plugins/highlight', 'public/plugins/highlight')
+    .copyDirectory('resources/plugins/perfect-scrollbar', 'public/plugins/perfect-scrollbar')
+    .copyDirectory('resources/plugins/notification', 'public/plugins/notification')
+    .copyDirectory('resources/plugins/input-mask', 'public/plugins/input-mask')
+    .copyDirectory('resources/plugins/editors/quill', 'public/plugins/quill')
+    .copyDirectory('resources/assets/css/error', 'public/assets/css/error')
+    .copyDirectory('resources/assets/img', 'public/assets/img')
+
+    .version()
+;

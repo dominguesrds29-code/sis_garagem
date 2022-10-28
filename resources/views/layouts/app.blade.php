@@ -15,7 +15,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <!-- Styles -->
-    @include('inc.styles')  
+    @include('inc.styles')
+    @hasSection('css')
+        @yield('css')
+    @endif
 </head>
 <body {{ ($has_scrollspy) ? scrollspy($scrollspy_offset) : '' }} class=" {{ ($page_name === 'alt_menu') ? 'alt-menu' : '' }} {{ ($page_name === 'error404') ? 'error404 text-center' : '' }} {{ ($page_name === 'error500') ? 'error500 text-center' : '' }} {{ ($page_name === 'error503') ? 'error503 text-center' : '' }} {{ ($page_name === 'maintenence') ? 'maintanence text-center' : '' }}">
     
@@ -50,6 +53,8 @@
     <!-- END MAIN CONTAINER -->
 
     @include('inc.scripts')
-
+    @hasSection('js')
+        @yield('js')
+    @endif
 </body>
 </html>
