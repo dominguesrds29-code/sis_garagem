@@ -17,7 +17,7 @@
                             <div class="form-row mb-2">
                                 <div class="form-group col-md-12">
                                     <label>Modelo</label>
-                                    <input type="text" class="form-control @error('modelo') is-invalid @enderror" name="modelo" placeholder="Modelo">
+                                    <input type="text" class="form-control @error('modelo') is-invalid @enderror" name="modelo" placeholder="Modelo" value="{{ old('modelo') }}">
 
                                     @error('modelo')
                                         <span class="invalid-feedback" role="alert">
@@ -31,9 +31,9 @@
                                 <div class="form-group col-md-5">
                                     <label>Tipo de Combustível</label>
                                     <select class="form-control tagging @error('combustivel') is-invalid @enderror" name="combustivel[]" multiple="multiple">
-                                        <option value="Gasolina">Gasolina</option>
-                                        <option value="Etanol">Etanol</option>
-                                        <option value="Diesel">Diesel</option>
+                                        <option value="Gasolina"{{ old('combustivel') && in_array('Gasolina', old('combustivel')) ? ' selected' : '' }}>Gasolina</option>
+                                        <option value="Etanol"{{ old('combustivel') && in_array('Etanol', old('combustivel')) ? ' selected' : '' }}>Etanol</option>
+                                        <option value="Diesel"{{ old('combustivel') && in_array('Diesel', old('combustivel')) ? ' selected' : '' }}>Diesel</option>
                                     </select>
 
                                     @error('combustivel')
@@ -46,8 +46,8 @@
                                     <label>Situação</label>
                                     <select class="placeholder js-states form-control @error('situacao') is-invalid @enderror" name="situacao">
                                         <option value="">Selecione uma opção...</option>
-                                        <option value="Ativa">Ativa</option>
-                                        <option value="Recolhida">Recolhida</option>
+                                        <option value="Ativa"{{ old('situacao') == 'Ativa' ? ' selected' : '' }}>Ativa</option>
+                                        <option value="Recolhida"{{ old('situacao') == 'Recolhida' ? ' selected' : '' }}>Recolhida</option>
                                     </select>
 
                                     @error('situacao')
@@ -58,7 +58,8 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>Kilometragem Inicial</label>
-                                    <input type="tel" class="form-control @error('kilometragem') is-invalid @enderror" name="kilometragem" placeholder="Kilometragem">
+                                    <input type="tel" class="form-control @error('kilometragem') is-invalid @enderror"
+                                           name="kilometragem" placeholder="Kilometragem" value="{{ old('kilometragem') }}">
 
                                     @error('kilometragem')
                                         <span class="invalid-feedback" role="alert">
@@ -67,9 +68,12 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-group col-md-3 offset-md-9">
-                                <button class="btn btn-primary mr-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg> Cadastrar
+                            <div class="form-group col-md-4 offset-md-8">
+                                <button class="btn btn-primary mr-2" name="only-save" value="true">
+                                    <i data-feather="check"></i> Cadastrar
+                                </button>
+                                <button class="btn btn-success mr-2">
+                                    <i data-feather="check"></i> Cadastrar e Criar Novo
                                 </button>
                                 <a class="btn btn-danger" href="{{ route('viatura.index') }}">Sair</a>
                             </div>
@@ -98,5 +102,16 @@
         },
         maximumSelectionLength: 2,
     });
+    @if(session()->exists('pos'))
+    $(document).ready(function () {
+        showNotification('{{ session()->get('text') }}',
+            '{{ session()->get('backgroundColor') }}',
+            '{{ session()->get('pos') }}',
+            '{{ session()->get('actionText') }}',
+            '{{ session()->get('actionTextColor') }}',
+            '{{ session()->get('duration') }}'
+        );
+    });
+    @endif
 </script>
 @endsection

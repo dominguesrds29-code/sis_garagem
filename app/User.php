@@ -69,7 +69,7 @@ class User extends Authenticatable implements JWTSubject
         }
 
         return [
-            'email' => 'required|unique:roles,name'.$ignore,
+            'email' => 'required|unique:users,email'.$ignore,
             'name' => 'required',
             'roles' => 'required',
             'password' => 'sometimes|confirmed',

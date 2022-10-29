@@ -101,7 +101,7 @@ class ViaturaController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only('modelo', 'combustivel', 'situacao', 'kilometragem');
+        $data = $request->only('modelo', 'combustivel', 'situacao');
         if(!$this->viaturaRepository->isValid($data)){
             return redirect()->route('viatura.create')
                         ->withErrors($this->viaturaRepository->getValidateErrors())
@@ -109,7 +109,12 @@ class ViaturaController extends Controller
         }
 
         $this->viaturaRepository->create($request);
-        return redirect()->route('viatura.index')
+        if($request->has('only-save')){
+            return redirect()->route('viatura.index')
+                ->with($this->Message->success('Cadastro Concluído', 'Viatura cadastrada com sucesso!')->render());
+        }
+
+        return redirect()->route('viatura.create')
             ->with($this->Notify->success('Viatura cadastrada com sucesso!')->render());
     }
 
@@ -152,7 +157,7 @@ class ViaturaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->only('modelo', 'combustivel', 'situacao', 'kilometragem');
+        $data = $request->only('id','modelo', 'combustivel', 'situacao');
         if(!$this->viaturaRepository->isValid($data)){
             return redirect()->route('viatura.create')
                 ->withErrors($this->viaturaRepository->getValidateErrors())
@@ -163,10 +168,9 @@ class ViaturaController extends Controller
         if($request->has('onlyEdit')){
             return redirect()->route('viatura.edit', $id)
                 ->with($this->Notify->success('Viatura atualizada com sucesso!')->render());
-        } else {
-            return redirect()->route('viatura.index')
-                ->with($this->Notify->success('Viatura atualizada com sucesso!')->render());
         }
+        return redirect()->route('viatura.index')
+            ->with($this->Message->success('Atualização Concluída', 'Viatura atualizada com sucesso!')->render());
 
     }
 

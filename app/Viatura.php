@@ -56,7 +56,6 @@ class Viatura extends Model
             'modelo' => 'required|unique:viaturas,modelo'.$ignore,
             'combustivel' => 'required',
             'situacao' => 'required|in:Ativa,Recolhida',
-            'kilometragem' => 'sometimes|integer',
         ];
     }
 

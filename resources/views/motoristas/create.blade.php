@@ -15,6 +15,7 @@
                         <form name="cadMotorista" method='post' action="{{ route('motorista.store') }}">
                             @csrf
                             @method('POST')
+                            <input type="hidden" name="status" value="1">
                             <div class="form-row mb-2">
                                 <div class="form-group col-md-8">
                                     <label>Nome do Motorista</label>

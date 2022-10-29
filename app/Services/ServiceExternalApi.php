@@ -148,8 +148,8 @@ abstract class ServiceExternalApi
             Log::info('===============================');
             */
             $this->result = $this->client->request('GET',$this->getUri() . $this->getRoute() . $paramsGet, [
-                'headers' => $this->header,
-                'verify' => $this->verifySSL
+                'verify' => $this->verifySSL,
+                'headers' => $this->header
             ]);
 
             return $this->getResponse();

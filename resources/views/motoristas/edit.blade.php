@@ -15,7 +15,7 @@
                     <form name="editMotorista" method='post' action="{{ route('motorista.update', $motorista->id) }}">
                         @csrf
                         @method('PUT')
-
+                        <input type="hidden" name="id" value="{{ $motorista->id  }}">
                         <input type="hidden" name="user_war_name" value="{{ $motorista->user_war_name  }}">
                         <input type="hidden" name="user_id" value="{{ $motorista->user_id  }}">
                         <input type="hidden" name="status" value="{{ $motorista->status  }}">
