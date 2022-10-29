@@ -29,7 +29,7 @@ abstract class ServiceExternalApi
     // tipo do token
     private $typeToken;
     // validador de certificados SSL
-    protected $verifySSL = true;
+    protected $verifySSL = false;
 
     // url base do serviço
     abstract protected function getUri();
@@ -148,8 +148,10 @@ abstract class ServiceExternalApi
             Log::info('===============================');
             */
             $this->result = $this->client->request('GET',$this->getUri() . $this->getRoute() . $paramsGet, [
-                'headers' => $this->header
+                'headers' => $this->header,
+                'verify' => $this->verifySSL
             ]);
+
             return $this->getResponse();
         } catch (RequestException $e) {
             $this->hasError = true;
