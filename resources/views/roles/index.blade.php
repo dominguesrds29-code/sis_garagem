@@ -25,7 +25,6 @@
                                 <tr>
                                     <th class="checkbox-column text-center"> ID</th>
                                     <th>Perfil</th>
-                                    <th class="text-center">Guard</th>
                                     <th class="text-center">Ações</th>
                                 </tr>
                                 </thead>

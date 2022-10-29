@@ -97,7 +97,7 @@ class UserController extends Controller
         ];
 
         return view('users.create', [
-            'users' => (new GetEffectiveList())->call(),
+            'users' => (new GetEffectiveList())->call() ?? [],
             'roles' => $this->roleRepository->getRoleNames(),
             'permissions' => $this->permissionRepository->getPermissionNames()
         ])->with($data);
