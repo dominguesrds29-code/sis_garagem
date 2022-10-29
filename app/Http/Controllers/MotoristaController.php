@@ -93,7 +93,7 @@ class MotoristaController extends Controller
 
         $users = (new GetEffectiveList())->call();
         return view('motoristas.create',[
-            'users' => $users
+            'users' => $users ?? []
         ])->with($data);
     }
 
