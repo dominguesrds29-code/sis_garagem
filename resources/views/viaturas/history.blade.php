@@ -27,7 +27,7 @@
                                     <th class="text-center">Ações</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-center">
 
                                 </tbody>
                             </table>

@@ -238,7 +238,7 @@ class DefaultRepository implements IDefaultRepository
         $dataForm = [];
         foreach ($this->Entity->getFillable() as $column) {
             $dataForm[$column] = is_object($data) ? $data->$column : $data[$column];
-            $date = \DateTime::createFromFormat('d/m/Y', $dataForm[$column]);
+            $date = is_string($dataForm[$column]) ? \DateTime::createFromFormat('d/m/Y', $dataForm[$column]) : false;
             if ($date) {
                 $dataForm[$column] = $date->format('Y-m-d');
             }

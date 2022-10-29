@@ -163,7 +163,7 @@ class MotoristaController extends Controller
      */
     public function update(Request $request, $motorista_id)
     {
-        $data = $request->only('user_war_name', 'cnh_number', 'cnh_category', 'cnh_validate', 'authorization_date');
+        $data = $request->only('id','user_war_name', 'cnh_number', 'cnh_category', 'cnh_validate', 'authorization_date');
 
         if(!$this->motoristaRepository->isValid($data)){
             return redirect()->route('motorista.edit', $motorista_id)

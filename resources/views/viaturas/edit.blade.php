@@ -14,6 +14,7 @@
                         <form name="editViatura" method='post' action="{{ route('viatura.update', $viatura->id) }}">
                             @csrf
                             @method('PUT')
+                            <input type="hidden" name="id" value="{{ $viatura->id }}">
                             <div class="form-row mb-2">
                                 <div class="form-group col-md-12">
                                     <label>Modelo</label>
