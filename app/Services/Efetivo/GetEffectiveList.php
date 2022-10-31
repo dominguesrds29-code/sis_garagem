@@ -10,6 +10,6 @@ class GetEffectiveList extends EfetivoService
 
     public function call()
     {
-        return parent::generatedToken()->getInJson([]);
+        return parent::generatedToken()->getInJson();
     }
 }
