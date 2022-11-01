@@ -185,7 +185,7 @@ class UserController extends Controller
         $data = $request->only('id', 'name', 'email', 'roles', 'password', 'password_confirmation');
 
         if(!$this->userRepository->isValid($data)){
-            return redirect()->route('users.profile', $id)
+            return redirect()->route('user.profile', $id)
                 ->withErrors($this->userRepository->getValidateErrors())
                 ->withInput();
         }
