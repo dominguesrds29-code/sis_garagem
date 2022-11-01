@@ -88,13 +88,16 @@
                                     <a href="{{ route('viatura.create') }}"> Cadastrar Viaturas </a>
                                 </li>
                             @endcan
-                            @can('viatura-list')
+                            @can('viatura-list-active')
                                 <li class="{{ ($page_name === 'listar_viaturas') ? 'active' : '' }}">
                                     <a href="{{ route('viatura.index') }}"> Listar Viaturas </a>
                                 </li>
+                            @endcan
+                            @can('viatura-list-desactive')
                                 <li class="{{ ($page_name === 'historico_viatura') ? 'active' : '' }}">
                                     <a href="{{ route('viatura.history') }}"> Histórico </a>
                                 </li>
+
                             @endcan
                         </ul>
                     </li>
@@ -119,10 +122,12 @@
                                     <a href="{{ route('motorista.create') }}"> Cad. Autorização </a>
                                 </li>
                             @endcan
-                            @can('driver-list')
+                            @can('driver-list-active')
                                 <li class="{{ ($page_name === 'listar_motoristas') ? 'active' : '' }}">
                                     <a href="{{ route('motorista.index') }}"> Listar Autorizações </a>
                                 </li>
+                            @endcan
+                            @can('driver-list-desactive')
                                 <li class="{{ ($page_name === 'historico_motorista') ? 'active' : '' }}">
                                     <a href="{{ route('motorista.history') }}"> Histórico </a>
                                 </li>
