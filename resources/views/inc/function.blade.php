@@ -6,7 +6,7 @@
         function setTitle($page_name) {
 
             // echo $page_name;
-            $admin_name = ' | ' . env('APP_NAME') ;
+            $admin_name = ' | ' . config('app.name') ;
 
             switch ($page_name){
                 case 'home':

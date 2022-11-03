@@ -10,7 +10,7 @@
                     </a>
                 </li>
                 <li class="nav-item theme-text">
-                    <a href="{{ route('home') }}" class="nav-link"> {{ env('APP_NAME') }} </a>
+                    <a href="{{ route('home') }}" class="nav-link"> {{ config('app.name') }} </a>
                 </li>
             </ul>
 
