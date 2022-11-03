@@ -7,6 +7,6 @@ use App\Services\ServiceExternalApi;
 abstract class EfetivoService extends ServiceExternalApi
 {
     protected function getUri() {
-        return "https://10.132.19.21/efetivosj/public";
+        return config('efetivo.api_uri');
     }
 }
