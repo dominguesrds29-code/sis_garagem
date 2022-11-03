@@ -21,7 +21,7 @@
                                     <label>Nome do Motorista</label>
                                     <select class="placeholder form-control drivers @error('user_war_name') is-invalid @enderror" name="user_war_name">
                                         @forelse($users as $user)
-                                            <option value="{{ $user->id }}#{{ $user->war_name }}"{{ old('user_war_name') == ($user->id . '#' . $user->war_name) ? ' selected' : '' }}>{{ $user->war_name }}</option>
+                                            <option value="{{ $user->id }}#{{ $user->pst_war_name }}"{{ old('user_war_name') == ($user->id . '#' . $user->pst_war_name) ? ' selected' : '' }}>{{ $user->pst_war_name }}</option>
                                         @empty
                                         @endforelse
                                     </select>
