@@ -40,7 +40,8 @@ class RequestRepository extends DefaultRepository implements IRequestRepository
                 'created_at' => date('d/m/Y H:i:s', strtotime($item->created_at)),
                 'dt_inicio' => date('d/m/Y', strtotime($item->dt_inicio)),
                 'dt_final' => date('d/m/Y', strtotime($item->dt_final)),
-                'viatura_id' => Viatura::find($item->viatura_id)->modelo,
+                'viatura_id' => Viatura::find($item->viatura_id) ? Viatura::find($item->viatura_id)->modelo :
+                    "Desconhecida [ID: {$item->viatura_id}]",
                 'motorista_id' => Motorista::find($item->motorista_id)->user_war_name,
                 'encarregado_aut' => $icons[$item->encarregado_aut],
                 'chefe_aut' => $icons[$item->chefe_aut],
@@ -180,10 +181,14 @@ class RequestRepository extends DefaultRepository implements IRequestRepository
                 }
                 switch ($field){
                     case 'viatura_id':
-                        $prepareFields[$field] = Viatura::find($value)->modelo;
+                        if($viatura = Viatura::find($value)){
+                            $prepareFields[$field] = $viatura->modelo;
+                        } else $prepareFields[$field] = "Desconhecida [ID:{$value}]";
                         break;
                     case 'motorista_id':
-                        $prepareFields[$field] = Motorista::find($value)->user_war_name;
+                        if($motorista = Motorista::find($value)){
+                            $prepareFields[$field] = $motorista->user_war_name;;
+                        } else $prepareFields[$field] = "Desconhecido [ID:{$value}]";
                         break;
                     case 'encarregado_aut':
                     case 'chefe_aut':
