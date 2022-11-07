@@ -48,7 +48,6 @@
     </style>
 </head>
 <body>
-<marker></marker>
 <div class="header-report">
     @php
         $mdUrl = asset(url('assets/img/brasaomd.jpg'));
@@ -70,18 +69,19 @@
     <p><strong>COMANDO DA AERONÁUTICA</strong></p>
     <p><u>CENTRO REGIONAL DE CONTROLE DO ESPAÇO AÉREO SUDESTE</u></p>
     <p>DESTACAMENTO DE CONTROLE DO ESPAÇO AÉREO DE SÃO JOSÉ DOS CAMPOS</p>
-    <hr>
 </div>
 <div style='text-align: justify'>
     <p style="margin-top: .5cm;"><strong>Número:</strong> {{ $solicitacao->id }} / SSTS / {{ date('Y') }}</p>
-    <p><strong>Autorizo o motorista:</strong> {{ $motorista->name }} {{ $motorista->grade }} {{ $motorista->specialty }} </p>
+    <p><strong>Autorizo o motorista:</strong> {{ $motorista ? "{$motorista->name} {$motorista->grade} {$motorista->specialty}" : "Desconhecido [ID: {$solicitacao->motorista_id}]" }} </p>
     <p><strong>Portador da carteira de habilitação Nr:</strong> {{ $solicitacao->motorista->cnh_number  }} </p>
-    <p><strong>A sair com a viatura:</strong> {{ $solicitacao->viatura->modelo  }} </p>
+    <p><strong>A sair com a viatura:</strong> {{ $solicitacao->viatura ? $solicitacao->viatura->modelo :
+        "Desconhecida [ID: {$solicitacao->viatura_id}]"  }} </p>
     <p><strong>Para a cidade de:</strong> {{ $solicitacao->destino  }} </p>
     <p><strong>Às</strong> {{ $solicitacao->hora_inicio  }} hs <strong>do dia</strong> {{ $solicitacao->getFormatDate($solicitacao->dt_inicio) }}</p>
+    <p><strong>Itinerário:</strong> {{ $solicitacao->itinerario }}</p>
     <p><strong>Especificação do Serviço:</strong> {{ $solicitacao->missao }}</p>
     <p><strong>Relação de Passageiros:</strong> {{ $solicitacao->passageiros }}</p>
-    <p style="text-align: right; margin-top: 1cm;">São José dos Campos, {{ $solicitacao->getFormatDate(date('Y-m-d')) }}</p>
+    <p style="text-align: right; margin-top: 1cm;">São José dos Campos, {{ $solicitacao->getFormatDate(date('Y-m-d', strtotime($solicitacao->created_at))) }}</p>
     @if(auth()->check())
     <p style="margin-top: 2cm;">
         <table style="width: 100%;">
@@ -131,7 +131,7 @@
     <table style="margin-top: .8cm; width: 100%; line-height: 16pt;">
         <tr><td style="border-bottom: 1px solid #000;">Ocorrências:</td></tr>
         @for($i=0;$i<8;$i++)
-            <tr><td style="border-bottom: 1px solid #000; height: 12pt;"></td></tr>
+            <tr><td style="border-bottom: 1px solid #000; height: 13pt;"></td></tr>
         @endfor
     </table>
 </div>
