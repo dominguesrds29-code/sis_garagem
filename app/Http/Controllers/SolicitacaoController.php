@@ -232,8 +232,12 @@ class SolicitacaoController extends Controller
      */
     public function print(int $id)
     {
-        $solicitacao = $this->requestRepository->get($id);
-        $motorista = (new GetUserData($solicitacao->motorista->user_id))->call();
+        if(!$solicitacao = $this->requestRepository->get($id)){
+            return redirect()->route('solicitacao.index')
+                ->with($this->Notify->error('Solicitação inexixtente ou excluída!')->render());
+        }
+
+        $motorista = $solicitacao->motorista ? (new GetUserData($solicitacao->motorista->user_id))->call() : null;
         $pdf = Pdf::loadView('solicitacoes.print', [
             'solicitacao' => $solicitacao,
             'motorista' => $motorista]);

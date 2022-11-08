@@ -17,7 +17,12 @@ class RoleRepository extends DefaultRepository implements IRoleRepository
 
     public function getRoleNames()
     {
-        return Role::orderBy('id', 'ASC')->pluck('name', 'name')->all();
+        return Role::orderBy('id', 'ASC')->pluck('name', 'name')->filter(function($item){
+            if($item == 'super-admin'){
+                return auth()->user()->hasRole('super-admin');
+            }
+            return true;
+        })->all();
     }
 
     public function getOwnPermissions($role)
