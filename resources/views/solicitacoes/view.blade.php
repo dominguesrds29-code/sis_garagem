@@ -32,11 +32,11 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Viatura</label>
-                                <div class="form-control">{{ $solicitacao->viatura->modelo }}</div>
+                                <div class="form-control">{{ $solicitacao->viatura ? $solicitacao->viatura->modelo : "Desconhecida [ID: {$solicitacao->viatura_id}]" }}</div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Nome do Motorista</label>
-                                <div class="form-control">{{ $solicitacao->motorista->user_war_name }}</div>
+                                <div class="form-control">{{ $solicitacao->motorista ? $solicitacao->motorista->user_war_name : "Desconhecido [ID: {$solicitacao->motorista_id}]" }}</div>
                             </div>
                             <div class="form-group col-md-12">
                                 <label>Destino</label>

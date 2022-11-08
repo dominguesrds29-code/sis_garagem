@@ -17,6 +17,11 @@ class PermissionRepository extends DefaultRepository implements IPermissionRepos
 
     public function getPermissionNames()
     {
-        return Permission::pluck('name', 'name')->all();
+        return Permission::pluck('name', 'name')->filter(function($item) {
+            if((strpos($item, 'permission-') !== false) || (strpos($item, 'role-') !== false)){
+                return auth()->user()->hasRole('super-admin');
+            }
+            return true;
+        })->all();
     }
 }
