@@ -233,7 +233,7 @@ class SolicitacaoController extends Controller
     public function print(int $id)
     {
         $solicitacao = $this->requestRepository->get($id);
-        $motorista = (new GetUserData($solicitacao->motorista->user_id))->call();
+        $motorista = $solicitacao->motorista ? (new GetUserData($solicitacao->motorista->user_id))->call() : null;
         $pdf = Pdf::loadView('solicitacoes.print', [
             'solicitacao' => $solicitacao,
             'motorista' => $motorista]);

@@ -73,7 +73,7 @@
 <div style='text-align: justify'>
     <p style="margin-top: .5cm;"><strong>Número:</strong> {{ $solicitacao->id }} / SSTS / {{ date('Y') }}</p>
     <p><strong>Autorizo o motorista:</strong> {{ $motorista ? "{$motorista->name} {$motorista->grade} {$motorista->specialty}" : "Desconhecido [ID: {$solicitacao->motorista_id}]" }} </p>
-    <p><strong>Portador da carteira de habilitação Nr:</strong> {{ $solicitacao->motorista->cnh_number  }} </p>
+    <p><strong>Portador da carteira de habilitação Nr:</strong> {{ $motorista ? $solicitacao->motorista->cnh_number : '--' }} </p>
     <p><strong>A sair com a viatura:</strong> {{ $solicitacao->viatura ? $solicitacao->viatura->modelo :
         "Desconhecida [ID: {$solicitacao->viatura_id}]"  }} </p>
     <p><strong>Para a cidade de:</strong> {{ $solicitacao->destino  }} </p>
