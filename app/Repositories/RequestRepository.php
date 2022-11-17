@@ -42,7 +42,8 @@ class RequestRepository extends DefaultRepository implements IRequestRepository
                 'dt_final' => date('d/m/Y', strtotime($item->dt_final)),
                 'viatura_id' => Viatura::find($item->viatura_id) ? Viatura::find($item->viatura_id)->modelo :
                     "Desconhecida [ID: {$item->viatura_id}]",
-                'motorista_id' => Motorista::find($item->motorista_id)->user_war_name,
+                'motorista_id' => Motorista::find($item->motorista_id) ? Motorista::find($item->motorista_id)->user_war_name :
+                    "Desconhecido [ID: {$item->motorista_id}]",
                 'encarregado_aut' => $icons[$item->encarregado_aut],
                 'chefe_aut' => $icons[$item->chefe_aut],
                 'status_missao' => $status[$item->status_missao],
