@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="form-content">
-    <h1 class="">Entrar no <br><a href="{{ route('login') }}"><span class="brand-name">{{ env('APP_NAME') }}</span></a></h1>
+    <h1 class="">Entrar no <br><a href="{{ route('login') }}"><span class="brand-name">{{ config('app.name') }}</span></a></h1>
     <p class="signup-link"></p>
     <form method="POST" action="{{ route('login') }}" class="text-left">
         @csrf
