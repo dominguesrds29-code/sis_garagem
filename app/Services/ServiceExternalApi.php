@@ -258,8 +258,7 @@ abstract class ServiceExternalApi
 
     public function generatedToken() : ServiceExternalApi
     {
-        $payload = @JWTFactory::sub()->make();
-        $token = JWTAuth::encode($payload);
+        $token = JWTAuth::fromUser(auth()->user());
         $this->header = ['Authorization' => 'Bearer ' . $token];
         return $this;
     }
