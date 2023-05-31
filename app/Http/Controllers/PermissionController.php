@@ -132,7 +132,7 @@ class PermissionController extends Controller
         $data = $request->only('id', 'name');
 
         if(!$this->repository->isValid($data)){
-            return redirect()->route('roles.edit', $id)
+            return redirect()->route('permission.edit', $id)
                 ->withErrors($this->repository->getValidateErrors())
                 ->withInput();
         }
