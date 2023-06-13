@@ -71,7 +71,7 @@
     <p>DESTACAMENTO DE CONTROLE DO ESPAÇO AÉREO DE SÃO JOSÉ DOS CAMPOS</p>
 </div>
 <div style='text-align: justify'>
-    <p style="margin-top: .5cm;"><strong>Número:</strong> {{ $solicitacao->id }} / SSTS / {{ date('Y') }}</p>
+    <p style="margin-top: .5cm;"><strong>Número:</strong> {{ $solicitacao->id }} / SITS / {{ date('Y') }}</p>
     <p><strong>Autorizo o motorista:</strong> {{ $motorista ? "{$motorista->name} {$motorista->grade} {$motorista->specialty}" : "Desconhecido [ID: {$solicitacao->motorista_id}]" }} </p>
     <p><strong>Portador da carteira de habilitação Nr:</strong> {{ $motorista ? $solicitacao->motorista->cnh_number : '--' }} </p>
     <p><strong>A sair com a viatura:</strong> {{ $solicitacao->viatura ? $solicitacao->viatura->modelo :
@@ -91,14 +91,14 @@
                 <td style="border-bottom: 1px solid #000; width: 45%;"></td>
             </tr>
             <tr>
-                <td style="text-align: center;"> {{ auth()->user()->name }} {{ auth()->user()->pst_specialty }} <br> Despachante da SSTS</td>
+                <td style="text-align: center;"> {{ auth()->user()->name }} {{ auth()->user()->pst_specialty }} <br> Despachante da SITS</td>
                 <td></td>
                 <td style="text-align: center;"> Gustavo Chiarelli Oliveira Cap Esp CTA <br> Comandante do DTCEA-SJ</td>
             </tr>
         </table>
     </p>
     @endif
-    <p style="margin-top: 1cm; text-align: center;">CONTROLE DA SSTS</p>
+    <p style="margin-top: 1cm; text-align: center;">CONTROLE DA SITS</p>
     <table class="border" style="width: 100%; font-size: .7em; line-height: 20pt;">
         <thead class="border">
             <th></th>
