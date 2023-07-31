@@ -8,7 +8,7 @@ trait DateTools
     {
         $months = [
             'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-            'Junlho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
         ];
         list($Year, $month, $day) = explode('-', $date);
         return "{$day} de {$months[$month - 1]} de {$Year}";
