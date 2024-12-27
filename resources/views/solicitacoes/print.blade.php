@@ -93,7 +93,7 @@
             <tr>
                 <td style="text-align: center;"> {{ auth()->user()->name }} {{ auth()->user()->pst_specialty }} <br> Despachante da SITS</td>
                 <td></td>
-                <td style="text-align: center;"> Jorge Henrique de Oliveira de Godoy 1º Ten Esp CTA <br> Comandante do DTCEA-SJ</td>
+                <td style="text-align: center;"> Jorge Henrique de Oliveira de Godoy Cap Esp CTA <br> Comandante do DTCEA-SJ</td>
             </tr>
         </table>
     </p>
