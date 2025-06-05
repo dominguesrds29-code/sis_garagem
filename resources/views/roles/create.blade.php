@@ -14,11 +14,11 @@
                         <div class="form-row mb-2">
                             <div class="form-group col-md-12">
                                 <label>Nome</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                       placeholder="Nome do Perfil">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" placeholder="Nome do Perfil">
 
                                 @error('name')
-                                <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -30,24 +30,26 @@
                                 <label>Permissões</label>
 
                                 @error('permissions')
-                                <span class="invalid-feedback d-block" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
 
                                 <div class="row">
-                                    @foreach($permissions as $permission)
-                                        @if($permission == 'admin-acl-show' && !auth()->user()->hasRole('super-admin'))
+                                    @foreach ($permissions as $permission)
+                                        @if ($permission == 'admin-acl-show' && !auth()->user()->hasRole('super-admin'))
                                             @continue
                                         @endif
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-6">
                                             <label>
-                                            <label class="switch s-outline s-outline-success">
-                                                <input type="checkbox" id="{{ $permission }}" name="permissions[]"
-                                                       value="{{ $permission }}"
-                                                    {{ old('permissions') && in_array($permission, old('permissions')) ? ' checked' : '' }}>
-                                                <span class="slider round mt-2"></span>
-                                            </label> <p style="color: #000; display: inline-block;"> {{ $permission }} </p></label>
+                                                <label class="switch s-outline s-outline-success">
+                                                    <input type="checkbox" id="{{ $permission }}" name="permissions[]"
+                                                        value="{{ $permission }}"
+                                                        {{ old('permissions') && in_array($permission, old('permissions')) ? ' checked' : '' }}>
+                                                    <span class="slider round mt-2"></span>
+                                                </label>
+                                                <p style="color: #000; display: inline-block;"> {{ $permission }} </p>
+                                            </label>
                                         </div>
                                     @endforeach
                                 </div>
@@ -56,7 +58,7 @@
                         </div>
 
 
-                        <div class="form-group col-md-4 offset-md-8">
+                        <div class="form-group col-md-6 offset-md-6">
                             <button class="btn btn-primary mr-2" name="only-save" value="true">
                                 <i data-feather="check"></i> Cadastrar
                             </button>
@@ -74,16 +76,16 @@
 
 @section('js')
     <script>
-        @if(session()->exists('pos'))
-        $(document).ready(function () {
-            showNotification('{{ session()->get('text') }}',
-                '{{ session()->get('backgroundColor') }}',
-                '{{ session()->get('pos') }}',
-                '{{ session()->get('actionText') }}',
-                '{{ session()->get('actionTextColor') }}',
-                '{{ session()->get('duration') }}'
-            );
-        });
+        @if (session()->exists('pos'))
+            $(document).ready(function() {
+                showNotification('{{ session()->get('text') }}',
+                    '{{ session()->get('backgroundColor') }}',
+                    '{{ session()->get('pos') }}',
+                    '{{ session()->get('actionText') }}',
+                    '{{ session()->get('actionTextColor') }}',
+                    '{{ session()->get('duration') }}'
+                );
+            });
         @endif
     </script>
 @endsection
