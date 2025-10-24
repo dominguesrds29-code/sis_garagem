@@ -73,4 +73,14 @@ class Viatura extends Model
     {
         return $this->hasMany(Solicitacao::class, 'viatura_id', 'id');
     }
+
+    public function saidas() : HasMany
+    {
+        return $this->hasMany(SaidaViatura::class, 'viatura_id', 'id');
+    }
+
+    public function isOut()
+    {
+        return $this->saidas()->where('status', SaidaViatura::ACTIVE)->exists();
+    }
 }

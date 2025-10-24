@@ -165,6 +165,10 @@ return [
         'roles' => 'papéis',
         'permission' => 'permissão',
         'role' => 'papel',
+        'hodometro_saida' => 'hodômetro de saída',
+        'hodometro_retorno' => 'hodômetro de retorno',
+        'hora_saida' => 'hora de saída',
+        'hora_retorno' => 'hora de retorno',
     ],
 
 ];

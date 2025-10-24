@@ -102,6 +102,43 @@
                         </ul>
                     </li>
                 @endcan
+                @can('saidaviatura-manage')
+                    <li class="menu {{ ($category_name === 'saida_viaturas') ? 'active' : '' }}">
+                        <a href="#saidaviatura" data-toggle="collapse"
+                           aria-expanded="{{ ($category_name === 'saida_viatura') ? 'true' : 'false' }}"
+                           class="dropdown-toggle">
+                            <div class="">
+                                <i data-feather="truck"></i>
+                                <span>Saída de Viaturas</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <ul class="collapse submenu list-unstyled {{ ($category_name === 'saida_viatura') ? 'show' : '' }}"
+                            id="saidaviatura" data-parent="#accordionMenu">
+                            @can('viatura-create')
+                                <li class="{{ ($page_name === 'cadastrar_saidaviatura') ? 'active' : '' }}">
+                                    <a href="{{ route('saidaviatura.create') }}"> Registrar Saída </a>
+                                </li>
+                            @endcan
+                            @can('saidaviatura-list-active')
+                                <li class="{{ ($page_name === 'listar_saidaviaturas') ? 'active' : '' }}">
+                                    <a href="{{ route('saidaviatura.index') }}"> Listar Saídas </a>
+                                </li>
+                            @endcan
+                            @can('saidaviatura-list-complete')
+                                <li class="{{ ($page_name === 'historico_saidaviatura') ? 'active' : '' }}">
+                                    <a href="{{ route('saidaviatura.history') }}"> Histórico </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
                 @can('driver-manage')
                     <li class="menu {{ ($category_name === 'motoristas') ? 'active' : '' }}">
                         <a href="#motorista" data-toggle="collapse"

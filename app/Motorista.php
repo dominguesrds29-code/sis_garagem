@@ -75,6 +75,11 @@ class Motorista extends Model
         return date('d/m/Y', strtotime($this->authorization_date));
     }
 
+    public function saidas() : HasMany
+    {
+        return $this->hasMany(SaidaViatura::class, 'motorista_id', 'id');
+    }
+
     public function getdataValidateAttribute()
     {
         $ignore = ',NULL,id';

@@ -12,11 +12,11 @@
                     <div class="widget-content widget-content-area">
                         <div class="row mb-3">
                             <div class="col-xl-9 col-md-9 col-sm-9 col-9">
-                                <h4 class="d-inline-block">Listagem de Autorizações de Motoristas</h4>
+                                <h4 class="d-inline-block">Saídas de Viaturas</h4>
                             </div>
                             <div class="col-md-3 col-sm-3 col-3">
-                                <a href="{{ route('motorista.create') }}"
-                                   class="btn btn-outline-primary btn-rounded btn-lg float-right">Cadastrar Autorização</a>
+                                <a href="{{ route('saidaviatura.create') }}"
+                                   class="btn btn-outline-primary btn-rounded btn-lg float-right">Nova Saída</a>
                             </div>
                         </div>
                         <div class="table-responsive mb-4">
@@ -56,14 +56,9 @@
                 }
             });
 
-            $(document).on('click', '.desactive-item', function () {
-                const route = $(this).data('action');
-                showConfirm('Desativar Autorização', 'Deseja realmente desativar esta Autorização?', 'question', 'Confirmar', 'Cancelar', route, 'PUT');
-            });
-
             $(document).on('click', '.del-item', function () {
                 const route = $(this).data('action');
-                showConfirm('Excluir Autorização', 'Deseja realmente excluir esta Autorização?', 'question', 'Confirmar', 'Cancelar', route, 'DELETE');
+                showConfirm('Excluir Saída', 'Deseja realmente cancelar esta Saída?', 'question', 'Confirmar', 'Cancelar', route, 'DELETE');
             })
 
             $('#data-table').DataTable(
@@ -84,7 +79,7 @@
         @endif
         @if(session()->exists('title'))
         showMessage('{{ session()->get('title') }}',
-            '{!!  session()->get('text') !!}',
+            '{!! session()->get('text') !!}',
             '{{ session()->get('type') }}'
         );
         @endif

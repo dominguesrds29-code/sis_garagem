@@ -6,7 +6,6 @@ use App\Interfaces\IMotoristaRepository;
 use App\Interfaces\IRequestRepository;
 use App\Interfaces\IViaturaRepository;
 use App\Services\Efetivo\GetUserData;
-use App\Solicitacao;
 use App\Support\DataList;
 use App\User;
 use Illuminate\Http\Request;

@@ -1,0 +1,11 @@
+[
+    {
+      "name": "Sis Garagem Database",
+      "type": "mysql",
+      "host": "localhost",
+      "port": 8011,
+      "username": "root",
+      "password": "",
+      "database": "sis_garagem"
+    }
+  ]

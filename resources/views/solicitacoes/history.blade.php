@@ -19,19 +19,18 @@
                             <table id="data-table" class="table style-3  table-hover">
                                 <thead>
                                 <tr>
-                                    <th class="checkbox-column text-center"> ID</th>
-                                    <th>Solicitante</th>
-                                    <th class="text-center">Saída</th>
-                                    <th class="text-center">Retorno</th>
-                                    <th class="text-center">Viatura</th>
-                                    <th class="text-center">Motorista</th>
-                                    <th class="text-center">Encarregado</th>
-                                    <th class="text-center">Chefe</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Arquivado em:</th>
-                                    <th class="text-center">Ações</th>
+                                    @foreach ($heads as $head)
+                                        <th class="text-center">{{ $head['label'] }}</th>
+                                    @endforeach
                                 </tr>
                                 </thead>
+                                <tfoot>
+                                <tr>
+                                    @foreach ($heads as $head)
+                                        <th class="text-center">{{ $head['label'] }}</th>
+                                    @endforeach
+                                </tr>
+                                </tfoot>
                                 <tbody style="text-align: center;">
 
                                 </tbody>
