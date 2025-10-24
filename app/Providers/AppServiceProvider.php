@@ -8,6 +8,7 @@ use App\Interfaces\IMotoristaRepository;
 use App\Interfaces\IPermissionRepository;
 use App\Interfaces\IRequestRepository;
 use App\Interfaces\IRoleRepository;
+use App\Interfaces\ISaidaViaturaRepository;
 use App\Interfaces\IUserRepository;
 use App\Interfaces\IValidator;
 use App\Interfaces\IViaturaRepository;
@@ -16,6 +17,7 @@ use App\Repositories\MotoristaRepository;
 use App\Repositories\PermissionRepository;
 use App\Repositories\RequestRepository;
 use App\Repositories\RoleRepository;
+use App\Repositories\SaidaViaturaRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\ViaturaRepository;
 use Illuminate\Support\ServiceProvider;
@@ -60,6 +62,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             IRoleRepository::class,
             RoleRepository::class
+        );
+        $this->app->bind(
+            ISaidaViaturaRepository::class,
+            SaidaViaturaRepository::class
         );
     }
 

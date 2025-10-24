@@ -192,7 +192,7 @@
                 dateFormat: "H:i",
                 defaultDate: "08:00"
             });
-            var f3 = flatpickr(document.getElementById('horaFinal'), {
+            var f4 = flatpickr(document.getElementById('horaFinal'), {
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",

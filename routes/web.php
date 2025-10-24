@@ -7,6 +7,7 @@ use App\Http\Controllers\MotoristaController;
 use App\Http\Controllers\SolicitacaoController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SaidaViaturaController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -26,36 +27,54 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'] , function() {
 
     // Viaturas
-    Route::post('/viatura/getdataActivelist/',[ViaturaController::class, 'getDatatableActiveList'])->name('viatura.activeList');
-    Route::post('/viatura/getdataDesactivelist/',[ViaturaController::class, 'getDatatableDesactiveList'])->name('viatura.inactiveList');
-    Route::get('/viatura/history', [ViaturaController::class, 'history'])->name('viatura.history');
-    Route::put('/viatura/activate/{viatura}', [ViaturaController::class, 'activate'])->name('viatura.activate');
-    Route::put('/viatura/desactivate/{viatura}', [ViaturaController::class, 'desactivate'])->name('viatura.desactivate');
+    Route::group(['as' => 'viatura.', 'prefix' => 'viatura'], function () {
+        Route::post('getdataActivelist/',[ViaturaController::class, 'getDatatableActiveList'])->name('activeList');
+        Route::post('getdataDesactivelist/',[ViaturaController::class, 'getDatatableDesactiveList'])->name('inactiveList');
+        Route::get('history', [ViaturaController::class, 'history'])->name('history');
+        Route::put('activate/{viatura}', [ViaturaController::class, 'activate'])->name('activate');
+        Route::put('desactivate/{viatura}', [ViaturaController::class, 'desactivate'])->name('desactivate');
+        Route::get('kilometragem/{id}', [ViaturaController::class, 'getKilometragem'])->name('getKilometragem');
+    });
     Route::resource('viatura', 'ViaturaController');
 
+    // Saída de Viaturas
+    Route::group(['as' => 'saidaviatura.', 'prefix' => 'saidaviatura'], function () {
+        Route::post('getdataActivelist/',[SaidaViaturaController::class, 'getDatatableActiveList'])->name('activeList');
+        Route::post('getdataCompletelist/',[SaidaViaturaController::class, 'getDatatableCompleteList'])->name('completeList');
+        Route::get('return/{id}',[SaidaViaturaController::class, 'return'])->name('return');
+        Route::put('return/{id}',[SaidaViaturaController::class, 'storeReturn'])->name('storeReturn');
+        Route::get('history', [SaidaViaturaController::class, 'history'])->name('history');
+        Route::get('create/{id?}/', [SaidaViaturaController::class, 'create'])->name('utilizar');
+    });
+    Route::resource('saidaviatura', 'SaidaViaturaController');
+
     // Motoristas
-    Route::post('/motorista/getdataActivelist/',[MotoristaController::class, 'getDatatableActiveList'])->name('motorista.activeList');
-    Route::post('/motorista/getdataDesactivelist/',[MotoristaController::class, 'getDatatableDesactiveList'])->name('motorista.inactiveList');
-    Route::get('/motorista/history', [MotoristaController::class, 'history'])->name('motorista.history');
-    Route::get('/motorista/imprimir/{motorista}', [MotoristaController::class, 'print'])->name('motorista.print');
-    Route::put('/motorista/activate/{motorista}', [MotoristaController::class, 'activate'])->name('motorista.activate');
-    Route::put('/motorista/desactivate/{motorista}', [MotoristaController::class, 'desactivate'])->name('motorista.desactivate');
+    Route::group(['as' => 'motorista.', 'prefix' => 'motorista'], function () {
+        Route::post('getdataActivelist/',[MotoristaController::class, 'getDatatableActiveList'])->name('activeList');
+        Route::post('getdataDesactivelist/',[MotoristaController::class, 'getDatatableDesactiveList'])->name('inactiveList');
+        Route::get('history', [MotoristaController::class, 'history'])->name('history');
+        Route::get('imprimir/{motorista}', [MotoristaController::class, 'print'])->name('print');
+        Route::put('activate/{motorista}', [MotoristaController::class, 'activate'])->name('activate');
+        Route::put('desactivate/{motorista}', [MotoristaController::class, 'desactivate'])->name('desactivate');
+    });
     Route::resource('motorista', 'MotoristaController');
 
     // Solicitações
-    Route::post('/solicitacao/getdataActivelist/',[SolicitacaoController::class, 'getDatatablePendingList'])->name('solicitacao.pendingList');
-    Route::post('/solicitacao/getdataAuthlist/',[SolicitacaoController::class, 'getDatatableAuthList'])->name('solicitacao.authList');
-    Route::post('/solicitacao/getdataAuthChlist/',[SolicitacaoController::class, 'getDatatableAuthChList'])->name('solicitacao.authChList');
-    Route::post('/solicitacao/getdataAuthRplist/',[SolicitacaoController::class, 'getDatatableAuthRpList'])->name('solicitacao.authRpList');
-    Route::post('/solicitacao/getdataHistorylist/',[SolicitacaoController::class, 'getDatatableHistoryList'])->name('solicitacao.historyList');
-    Route::put('/solicitacao/approve/{solicitacao}', [SolicitacaoController::class, 'approve'])->name('solicitacao.approve');
-    Route::put('/solicitacao/desapprove/{solicitacao}', [SolicitacaoController::class, 'desapprove'])->name('solicitacao.desapprove');
-    Route::put('/solicitacao/archive/{solicitacao}', [SolicitacaoController::class, 'archive'])->name('solicitacao.archive');
-    Route::get('/solicitacao/preauthorized', [SolicitacaoController::class, 'preauthorized'])->name('solicitacao.preauthorized');
-    Route::get('/solicitacao/authorized', [SolicitacaoController::class, 'authorized'])->name('solicitacao.authorized');
-    Route::get('/solicitacao/reproved', [SolicitacaoController::class, 'reproved'])->name('solicitacao.reproved');
-    Route::get('/solicitacao/history', [SolicitacaoController::class, 'history'])->name('solicitacao.history');
-    Route::get('/solicitacao/print/{solicitacao}', [SolicitacaoController::class, 'print'])->name('solicitacao.print');
+    Route::group(['as' => 'solicitacao.', 'prefix' => 'solicitacao'], function () {
+        Route::post('getdataActivelist/',[SolicitacaoController::class, 'getDatatablePendingList'])->name('pendingList');
+        Route::post('getdataAuthlist/',[SolicitacaoController::class, 'getDatatableAuthList'])->name('authList');
+        Route::post('getdataAuthChlist/',[SolicitacaoController::class, 'getDatatableAuthChList'])->name('authChList');
+        Route::post('getdataAuthRplist/',[SolicitacaoController::class, 'getDatatableAuthRpList'])->name('authRpList');
+        Route::post('getdataHistorylist/',[SolicitacaoController::class, 'getDatatableHistoryList'])->name('historyList');
+        Route::put('approve/{solicitacao}', [SolicitacaoController::class, 'approve'])->name('approve');
+        Route::put('desapprove/{solicitacao}', [SolicitacaoController::class, 'desapprove'])->name('desapprove');
+        Route::put('archive/{solicitacao}', [SolicitacaoController::class, 'archive'])->name('archive');
+        Route::get('preauthorized', [SolicitacaoController::class, 'preauthorized'])->name('preauthorized');
+        Route::get('authorized', [SolicitacaoController::class, 'authorized'])->name('authorized');
+        Route::get('reproved', [SolicitacaoController::class, 'reproved'])->name('reproved');
+        Route::get('history', [SolicitacaoController::class, 'history'])->name('history');
+        Route::get('print/{solicitacao}', [SolicitacaoController::class, 'print'])->name('print');
+    });
     Route::resource('solicitacao', 'SolicitacaoController');
 
     //Permissões
@@ -67,12 +86,14 @@ Route::group(['middleware' => 'auth'] , function() {
     Route::resource('role', 'RoleController');
 
     //Usuários
-    Route::get('user/profile/{user}',[UserController::class, 'profile'])->name('user.profile');
-    Route::put('user/profile/{user}',[UserController::class, 'updateProfile'])->name('user.updateProfile');
-    Route::post('/user/getdataActivelist/',[UserController::class, 'getDatatableActiveList'])->name('user.activeList');
-    Route::post('/user/getdataDeletedlist/',[UserController::class, 'getDatatableDeletedList'])->name('user.deletedList');
-    Route::put('/user/restore/{user}', [UserController::class, 'restore'])->name('user.activate');
-    Route::get('/user/history', [UserController::class, 'history'])->name('user.history');
+    Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
+        Route::get('profile/{user}',[UserController::class, 'profile'])->name('profile');
+        Route::put('profile/{user}',[UserController::class, 'updateProfile'])->name('updateProfile');
+        Route::post('getdataActivelist/',[UserController::class, 'getDatatableActiveList'])->name('activeList');
+        Route::post('getdataDeletedlist/',[UserController::class, 'getDatatableDeletedList'])->name('deletedList');
+        Route::put('restore/{user}', [UserController::class, 'restore'])->name('activate');
+        Route::get('history', [UserController::class, 'history'])->name('history');
+    });
     Route::resource('user', 'UserController');
 });
 

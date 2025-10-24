@@ -12,29 +12,24 @@
                     <div class="widget-content widget-content-area">
                         <div class="row mb-3">
                             <div class="col-xl-9 col-md-9 col-sm-9 col-9">
-                                <h4 class="d-inline-block">Listagem de Autorizações de Motoristas</h4>
-                            </div>
-                            <div class="col-md-3 col-sm-3 col-3">
-                                <a href="{{ route('motorista.create') }}"
-                                   class="btn btn-outline-primary btn-rounded btn-lg float-right">Cadastrar Autorização</a>
+                                <h4 class="d-inline-block">Histórico de Saídas de Viaturas</h4>
                             </div>
                         </div>
                         <div class="table-responsive mb-4">
                             <table id="data-table" class="table style-3  table-hover">
                                 <thead>
                                 <tr>
-                                    @foreach ($heads as $head)
-                                        <th class="text-center">{{ $head['label'] }}</th>
-                                    @endforeach
+                                    <th class="checkbox-column text-center"> ID</th>
+                                    <th>Viatura</th>
+                                    <th>Motorista</th>
+                                    <th class="text-center">Hodômetro Saída</th>
+                                    <th class="text-center">Hora Saída</th>
+                                    <th class="text-center">Hodômetro Chegada</th>
+                                    <th class="text-center">Hora Chegada</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Ações</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    @foreach ($heads as $head)
-                                        <th class="text-center">{{ $head['label'] }}</th>
-                                    @endforeach
-                                </tr>
-                                </tfoot>
                                 <tbody style="text-align: center;">
 
                                 </tbody>
@@ -56,14 +51,9 @@
                 }
             });
 
-            $(document).on('click', '.desactive-item', function () {
-                const route = $(this).data('action');
-                showConfirm('Desativar Autorização', 'Deseja realmente desativar esta Autorização?', 'question', 'Confirmar', 'Cancelar', route, 'PUT');
-            });
-
             $(document).on('click', '.del-item', function () {
                 const route = $(this).data('action');
-                showConfirm('Excluir Autorização', 'Deseja realmente excluir esta Autorização?', 'question', 'Confirmar', 'Cancelar', route, 'DELETE');
+                showConfirm('Excluir Viatura', 'Deseja realmente excluir esta Viatura?', 'question', 'Confirmar', 'Cancelar', route, 'DELETE');
             })
 
             $('#data-table').DataTable(
@@ -84,7 +74,7 @@
         @endif
         @if(session()->exists('title'))
         showMessage('{{ session()->get('title') }}',
-            '{!!  session()->get('text') !!}',
+            '{!! session()->get('text') !!}',
             '{{ session()->get('type') }}'
         );
         @endif

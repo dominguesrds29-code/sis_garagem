@@ -14,6 +14,7 @@ trait DataList
 
         foreach ($fieldList as $field) {
             if(is_array($field)){
+                if(!$field['table']) continue;
                 $width = $field['width'] ?? '';
                 $heads[] = ['label' => $field['label'], 'width' => $width];
             } else {

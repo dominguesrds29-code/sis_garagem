@@ -11,4 +11,10 @@ interface IViaturaRepository extends IDefaultRepository
     public function active($id);
 
     public function desactive($id);
+
+    public function isOut();
+
+    public function getKilometragem($id);
+
+    public function updateKilometragem($value, $id);
 }

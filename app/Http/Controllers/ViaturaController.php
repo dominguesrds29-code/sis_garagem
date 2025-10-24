@@ -229,6 +229,11 @@ class ViaturaController extends Controller
         return response()->json($this->getDatatableList($request, ['situacao' => Viatura::INACTIVE], [0,0,1,0,0,0,0]));
     }
 
+    public function getKilometragem($id)
+    {
+        return response()->json(['kilometragem' => $this->viaturaRepository->getKilometragem($id)]);
+    }
+
     private function getDatatableList(Request $request, $condition, $buttons)
     {
         $draw = $request->get('draw');
