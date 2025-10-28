@@ -219,7 +219,7 @@ class SaidaViaturaController extends Controller
         }
 
         $request['status'] = 0;
-        $this->viaturaRepository->updateKilometragem($request->hodometro_retorno, $id);
+        $this->viaturaRepository->updateKilometragem($request->hodometro_retorno, $request->viatura_id);
 
         $this->saidaViaturaRepository->update($request, $id);
 
