@@ -82,6 +82,36 @@ class SaidaViaturaController extends Controller
     }
 
     /**
+     * Display a chart of saida viaturas.
+     *
+     * @return Response
+     */
+    public function grafico()
+    {
+        $data = [
+            'category_name' => 'saida_viatura',
+            'page_name' => 'grafico_saidaviaturas',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        $grafico_dados = \DB::table('saida_viaturas')
+            ->select(\DB::raw('DATE_FORMAT(created_at, "%m/%Y") as data'), \DB::raw('count(id) as total'))
+            ->whereNull('deleted_at')
+            ->groupBy('data')
+            ->orderBy(\DB::raw('MIN(created_at)'), 'asc')
+            ->get();
+
+        $datas = $grafico_dados->pluck('data')->toArray();
+        $totais = $grafico_dados->pluck('total')->map(function($val) { return (int) $val; })->values()->toArray();
+
+        return view('saidaviaturas.grafico', [
+            'datas' => $datas,
+            'totais' => $totais
+        ])->with($data);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response

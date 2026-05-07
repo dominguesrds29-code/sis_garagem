@@ -16,6 +16,16 @@
                         </div>
                     </a>
                 </li>
+
+                <li class="menu {{ ($category_name === 'estatisticas') ? 'active' : '' }}">
+                    <a href="{{ route('estatisticas.index') }}" aria-expanded="{{ ($category_name === 'estatisticas') ? 'true' : 'false' }}"
+                       class="dropdown-toggle">
+                        <div class="">
+                            <i data-feather="bar-chart-2"></i>
+                            <span> Estatísticas </span>
+                        </div>
+                    </a>
+                </li>
                 @can('request-manage')
                     <li class="menu {{ ($category_name === 'solicitacoes') ? 'active' : '' }}">
                         <a href="#solicitacao" data-toggle="collapse"
@@ -92,6 +102,9 @@
                                 <li class="{{ ($page_name === 'listar_viaturas') ? 'active' : '' }}">
                                     <a href="{{ route('viatura.index') }}"> Listar Viaturas </a>
                                 </li>
+                                <li class="{{ ($page_name === 'grafico_viaturas') ? 'active' : '' }}">
+                                    <a href="{{ route('viatura.grafico') }}"> Gráfico </a>
+                                </li>
                             @endcan
                             @can('viatura-list-desactive')
                                 <li class="{{ ($page_name === 'historico_viatura') ? 'active' : '' }}">
@@ -129,6 +142,9 @@
                             @can('saidaviatura-list-active')
                                 <li class="{{ ($page_name === 'listar_saidaviaturas') ? 'active' : '' }}">
                                     <a href="{{ route('saidaviatura.index') }}"> Listar Saídas </a>
+                                </li>
+                                <li class="{{ ($page_name === 'grafico_saidaviaturas') ? 'active' : '' }}">
+                                    <a href="{{ route('saidaviatura.grafico') }}"> Gráfico </a>
                                 </li>
                             @endcan
                             @can('saidaviatura-list-complete')
