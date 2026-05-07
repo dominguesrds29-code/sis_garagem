@@ -9,6 +9,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaidaViaturaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AnalyticsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +27,15 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'] , function() {
 
+    // Analytics / Estatísticas
+    Route::get('estatisticas', [AnalyticsController::class, 'index'])->name('estatisticas.index');
+
     // Viaturas
     Route::group(['as' => 'viatura.', 'prefix' => 'viatura'], function () {
         Route::post('getdataActivelist/',[ViaturaController::class, 'getDatatableActiveList'])->name('activeList');
         Route::post('getdataDesactivelist/',[ViaturaController::class, 'getDatatableDesactiveList'])->name('inactiveList');
         Route::get('history', [ViaturaController::class, 'history'])->name('history');
+        Route::get('grafico', [ViaturaController::class, 'grafico'])->name('grafico');
         Route::put('activate/{viatura}', [ViaturaController::class, 'activate'])->name('activate');
         Route::put('desactivate/{viatura}', [ViaturaController::class, 'desactivate'])->name('desactivate');
         Route::get('kilometragem/{id}', [ViaturaController::class, 'getKilometragem'])->name('getKilometragem');
@@ -44,6 +49,7 @@ Route::group(['middleware' => 'auth'] , function() {
         Route::get('return/{id}',[SaidaViaturaController::class, 'return'])->name('return');
         Route::put('return/{id}',[SaidaViaturaController::class, 'storeReturn'])->name('storeReturn');
         Route::get('history', [SaidaViaturaController::class, 'history'])->name('history');
+        Route::get('grafico', [SaidaViaturaController::class, 'grafico'])->name('grafico');
         Route::get('create/{id?}/', [SaidaViaturaController::class, 'create'])->name('utilizar');
     });
     Route::resource('saidaviatura', 'SaidaViaturaController');

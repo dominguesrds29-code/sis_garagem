@@ -57,6 +57,9 @@
                 case 'historico_viaturas':
                     echo 'Histórico de Viaturas' . $admin_name;
 					break;
+                case 'grafico_viaturas':
+                    echo 'Gráfico de Viaturas' . $admin_name;
+                    break;
 
                 // Permissões
                 case 'listar_permissons':
@@ -143,6 +146,7 @@
                 // Viaturas
                 case 'listar_viaturas':
                 case 'historico_viaturas':
+                case 'grafico_viaturas':
                     echo '<li class="breadcrumb-item active" aria-current="page"><span>' . $page .'</span></li>';
 					break;
                 case 'cadastrar_viatura':
