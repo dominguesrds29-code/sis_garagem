@@ -78,6 +78,36 @@ class ViaturaController extends Controller
     }
 
     /**
+     * Display a chart of viaturas usage.
+     *
+     * @return Response
+     */
+    public function grafico()
+    {
+        $data = [
+            'category_name' => 'viatura',
+            'page_name' => 'grafico_viaturas',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        $grafico_dados = \DB::table('saida_viaturas')
+            ->join('viaturas', 'saida_viaturas.viatura_id', '=', 'viaturas.id')
+            ->select('viaturas.modelo', \DB::raw('count(saida_viaturas.id) as total'))
+            ->whereNull('saida_viaturas.deleted_at')
+            ->groupBy('viaturas.id', 'viaturas.modelo')
+            ->get();
+
+        $modelos = $grafico_dados->pluck('modelo')->toArray();
+        $totais = $grafico_dados->pluck('total')->map(function($val) { return (int) $val; })->values()->toArray();
+
+        return view('viaturas.grafico', [
+            'modelos' => $modelos,
+            'totais' => $totais
+        ])->with($data);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
