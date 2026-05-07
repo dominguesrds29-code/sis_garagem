@@ -190,7 +190,7 @@
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "08:00"
+                defaultDate: "{{ now()->format('H:i') }}"
             });
             var f4 = flatpickr(document.getElementById('horaFinal'), {
                 enableTime: true,
