@@ -102,9 +102,6 @@
                                 <li class="{{ ($page_name === 'listar_viaturas') ? 'active' : '' }}">
                                     <a href="{{ route('viatura.index') }}"> Listar Viaturas </a>
                                 </li>
-                                <li class="{{ ($page_name === 'grafico_viaturas') ? 'active' : '' }}">
-                                    <a href="{{ route('viatura.grafico') }}"> Gráfico </a>
-                                </li>
                             @endcan
                             @can('viatura-list-desactive')
                                 <li class="{{ ($page_name === 'historico_viatura') ? 'active' : '' }}">
@@ -142,9 +139,6 @@
                             @can('saidaviatura-list-active')
                                 <li class="{{ ($page_name === 'listar_saidaviaturas') ? 'active' : '' }}">
                                     <a href="{{ route('saidaviatura.index') }}"> Listar Saídas </a>
-                                </li>
-                                <li class="{{ ($page_name === 'grafico_saidaviaturas') ? 'active' : '' }}">
-                                    <a href="{{ route('saidaviatura.grafico') }}"> Gráfico </a>
                                 </li>
                             @endcan
                             @can('saidaviatura-list-complete')

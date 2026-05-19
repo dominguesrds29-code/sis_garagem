@@ -50,6 +50,31 @@ class AnalyticsController extends Controller
             ->orderBy('data', 'asc')
             ->get();
 
+        // 5. Uso de Viaturas (Quantidade de Vezes Utilizada)
+        $usoViaturas = DB::table('saida_viaturas')
+            ->join('viaturas', 'saida_viaturas.viatura_id', '=', 'viaturas.id')
+            ->select('viaturas.modelo', DB::raw('count(saida_viaturas.id) as total'))
+            ->whereNull('saida_viaturas.deleted_at')
+            ->groupBy('viaturas.id', 'viaturas.modelo')
+            ->get();
+
+        $usoViaturasModelos = $usoViaturas->pluck('modelo')->toArray();
+        $usoViaturasTotais = $usoViaturas->pluck('total')->map(function($val) { return (int) $val; })->values()->toArray();
+
+        // 6. Histórico de Saídas por Mês
+        $saidasMes = DB::table('saida_viaturas')
+            ->select(DB::raw('DATE_FORMAT(created_at, "%m/%Y") as data'), DB::raw('count(id) as total'))
+            ->whereNull('deleted_at')
+            ->groupBy('data')
+            ->orderBy(DB::raw('MIN(created_at)'), 'asc')
+            ->get();
+
+        $saidasMesDatas = $saidasMes->pluck('data')->toArray();
+        $saidasMesTotais = $saidasMes->pluck('total')->map(function($val) { return (int) $val; })->values()->toArray();
+
+        // 7. Todas as viaturas para o dropdown de filtro
+        $viaturas = Viatura::orderBy('modelo', 'asc')->get();
+
         return view('analytics.index', [
             'category_name' => $category_name,
             'page_name' => $page_name,
@@ -58,7 +83,33 @@ class AnalyticsController extends Controller
             'motoristasKms' => $motoristasKms,
             'viaturasMaisRodadas' => $viaturasMaisRodadas,
             'viaturasMaisAntigas' => $viaturasMaisAntigas,
-            'kmPorDia' => $kmPorDia
+            'kmPorDia' => $kmPorDia,
+            'usoViaturasModelos' => $usoViaturasModelos,
+            'usoViaturasTotais' => $usoViaturasTotais,
+            'saidasMesDatas' => $saidasMesDatas,
+            'saidasMesTotais' => $saidasMesTotais,
+            'viaturas' => $viaturas,
+        ]);
+    }
+
+    public function getKmPorDia($viatura_id)
+    {
+        $query = SaidaViatura::select(DB::raw('DATE(created_at) as data'), DB::raw('SUM(CAST(hodometro_retorno AS UNSIGNED) - CAST(hodometro_saida AS UNSIGNED)) as total_km'))
+            ->whereNotNull('hodometro_retorno')
+            ->where('status', SaidaViatura::COMPLETE)
+            ->where('created_at', '>=', now()->subDays(30));
+
+        if ($viatura_id !== 'all') {
+            $query->where('viatura_id', $viatura_id);
+        }
+
+        $kmPorDia = $query->groupBy('data')
+            ->orderBy('data', 'asc')
+            ->get();
+
+        return response()->json([
+            'labels' => $kmPorDia->pluck('data'),
+            'values' => $kmPorDia->pluck('total_km')->map(fn($v) => (float)$v)
         ]);
     }
 }

@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Analytics / Estatísticas
     Route::get('estatisticas', [AnalyticsController::class, 'index'])->name('estatisticas.index');
+    Route::get('estatisticas/km-por-dia/{viatura_id}', [AnalyticsController::class, 'getKmPorDia'])->name('estatisticas.km_por_dia');
 
     // Viaturas
     Route::group(['as' => 'viatura.', 'prefix' => 'viatura'], function () {

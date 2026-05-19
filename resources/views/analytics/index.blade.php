@@ -37,11 +37,43 @@
             <!-- KM Rodados por Dia (Últimos 30 dias) -->
             <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                 <div class="widget widget-chart-one">
-                    <div class="widget-heading">
-                        <h5 class="">KM Totais por Dia (Últimos 30 dias)</h5>
+                    <div class="widget-heading" style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 15px;">
+                        <h5 class="" style="margin-bottom: 0;">KM Totais por Dia (Últimos 30 dias)</h5>
+                        <div style="width: 200px;">
+                            <select id="viaturaSelect" class="form-control" style="padding: 4px 10px; height: auto; font-size: 13px; border-radius: 6px;">
+                                <option value="all">Todas as Viaturas</option>
+                                @foreach($viaturas as $viatura)
+                                    <option value="{{ $viatura->id }}">{{ $viatura->modelo }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="widget-content">
                         <div id="kmDiaChart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Uso de Viaturas -->
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                <div class="widget widget-chart-one">
+                    <div class="widget-heading">
+                        <h5 class="">Uso de Viaturas (Nº de Saídas)</h5>
+                    </div>
+                    <div class="widget-content">
+                        <div id="viaturasChart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Histórico de Saídas (Por Mês) -->
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                <div class="widget widget-chart-one">
+                    <div class="widget-heading">
+                        <h5 class="">Histórico de Saídas (Por Mês)</h5>
+                    </div>
+                    <div class="widget-content">
+                        <div id="saidasChart"></div>
                     </div>
                 </div>
             </div>
@@ -194,5 +226,118 @@
         }
         var chartKmDia = new ApexCharts(document.querySelector("#kmDiaChart"), optionsKmDia);
         chartKmDia.render();
+
+        // Filtro dinâmico do gráfico de KM rodados por dia
+        $('#viaturaSelect').on('change', function () {
+            var viaturaId = $(this).val();
+            var url = '{{ route("estatisticas.km_por_dia", ["viatura_id" => ":id"]) }}';
+            url = url.replace(':id', viaturaId);
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    chartKmDia.updateOptions({
+                        xaxis: {
+                            categories: data.labels
+                        }
+                    });
+                    chartKmDia.updateSeries([{
+                        name: 'Total KM',
+                        data: data.values
+                    }]);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erro ao carregar dados do gráfico: ", error);
+                }
+            });
+        });
+
+        // Gráfico de Uso de Viaturas
+        var viaturasModelos = @json($usoViaturasModelos);
+        var viaturasTotais = @json($usoViaturasTotais);
+
+        var optionsViaturas = {
+            series: [{
+                name: 'Número de Saídas',
+                data: viaturasTotais
+            }],
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: { show: false }
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: false,
+                    columnWidth: '45%'
+                }
+            },
+            colors: ['#4361ee'],
+            dataLabels: {
+                enabled: true
+            },
+            xaxis: {
+                categories: viaturasModelos,
+                labels: {
+                    style: {
+                        fontSize: '13px'
+                    }
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Quantidade de Vezes Utilizada'
+                }
+            }
+        };
+
+        var chartViaturas = new ApexCharts(document.querySelector("#viaturasChart"), optionsViaturas);
+        chartViaturas.render();
+
+        // Gráfico de Histórico de Saídas por Mês
+        var saidasMesDatas = @json($saidasMesDatas);
+        var saidasMesTotais = @json($saidasMesTotais);
+
+        var optionsSaidas = {
+            series: [{
+                name: 'Número de Saídas',
+                data: saidasMesTotais
+            }],
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: { show: false }
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: false,
+                    columnWidth: '45%'
+                }
+            },
+            colors: ['#009688'],
+            dataLabels: {
+                enabled: true
+            },
+            xaxis: {
+                categories: saidasMesDatas,
+                labels: {
+                    style: {
+                        fontSize: '13px'
+                    }
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Quantidade Total de Saídas'
+                }
+            }
+        };
+
+        var chartSaidas = new ApexCharts(document.querySelector("#saidasChart"), optionsSaidas);
+        chartSaidas.render();
     </script>
 @endsection
