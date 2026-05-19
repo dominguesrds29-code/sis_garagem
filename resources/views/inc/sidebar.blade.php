@@ -17,7 +17,7 @@
                     </a>
                 </li>
 
-                @hasanyrole('super-admin|admin')
+                @can('estatisticas-show')
                 <li class="menu {{ ($category_name === 'estatisticas') ? 'active' : '' }}">
                     <a href="{{ route('estatisticas.index') }}" aria-expanded="{{ ($category_name === 'estatisticas') ? 'true' : 'false' }}"
                        class="dropdown-toggle">
@@ -27,7 +27,7 @@
                         </div>
                     </a>
                 </li>
-                @endhasanyrole
+                @endcan
                 @can('request-manage')
                     <li class="menu {{ ($category_name === 'solicitacoes') ? 'active' : '' }}">
                         <a href="#solicitacao" data-toggle="collapse"

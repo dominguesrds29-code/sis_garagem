@@ -14,7 +14,7 @@ class AnalyticsController extends Controller
     {
         parent::__construct();
         $this->middleware('auth');
-        $this->middleware('role:super-admin|admin');
+        $this->middleware('permission:estatisticas-show');
     }
 
     public function index()
