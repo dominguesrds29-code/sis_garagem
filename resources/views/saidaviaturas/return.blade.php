@@ -56,11 +56,10 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>Hodômetro de Retorno:</label>
-                                    <input id="hodometro_retorno" value="{{ old('hodometro_retorno')  }}" name="hodometro_retorno"
+                                    <input id="hodometro_retorno" value="{{ old('hodometro_retorno') }}" name="hodometro_retorno"
                                         class="form-control @error('hodometro_retorno') is-invalid @enderror"
                                         type="number" min="0" maxlength="6"
-                                        oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);"
-                                        placeholder="Máx. 6 dígitos">
+                                        oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);">
 
                                     @error('hodometro_retorno')
                                     <span class="invalid-feedback" role="alert">
@@ -70,7 +69,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>Hora de Retorno:</label>
-                                    <input id="hora_retorno" value="{{ old('hora_retorno') ?? \Carbon\Carbon::now()->format('H:i') }}" name="hora_retorno"
+                                    <input id="hora_retorno" value="{{ old('hora_retorno') }}" name="hora_retorno"
                                         class="form-control flatpickr flatpickr-input @error('hora_retorno') is-invalid @enderror"
                                         type="text" placeholder="Selecione um Horário..">
 
@@ -104,7 +103,7 @@
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "now"
+                defaultDate: "{{ now()->format('H:i') }}"
             });
         });
 
