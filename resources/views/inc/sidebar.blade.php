@@ -133,7 +133,7 @@
                         </a>
                         <ul class="collapse submenu list-unstyled {{ ($category_name === 'saida_viatura') ? 'show' : '' }}"
                             id="saidaviatura" data-parent="#accordionMenu">
-                            @can('viatura-create')
+                            @can('saidaviatura-create')
                                 <li class="{{ ($page_name === 'cadastrar_saidaviatura') ? 'active' : '' }}">
                                     <a href="{{ route('saidaviatura.create') }}"> Registrar Saída </a>
                                 </li>
