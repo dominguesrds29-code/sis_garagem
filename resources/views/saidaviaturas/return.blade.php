@@ -58,7 +58,9 @@
                                     <label>Hodômetro de Retorno:</label>
                                     <input id="hodometro_retorno" value="{{ old('hodometro_retorno')  }}" name="hodometro_retorno"
                                         class="form-control @error('hodometro_retorno') is-invalid @enderror"
-                                        type="text">
+                                        type="number" min="0" maxlength="6"
+                                        oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);"
+                                        placeholder="Máx. 6 dígitos">
 
                                     @error('hodometro_retorno')
                                     <span class="invalid-feedback" role="alert">
