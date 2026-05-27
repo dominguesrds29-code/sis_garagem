@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>Hora de Retorno:</label>
-                                    <input id="hora_retorno" value="{{ old('hora_retorno') }}" name="hora_retorno"
+                                    <input id="hora_retorno" value="{{ old('hora_retorno') ?? \Carbon\Carbon::now()->format('H:i') }}" name="hora_retorno"
                                         class="form-control flatpickr flatpickr-input @error('hora_retorno') is-invalid @enderror"
                                         type="text" placeholder="Selecione um Horário..">
 
@@ -104,7 +104,7 @@
                 enableTime: true,
                 noCalendar: true,
                 dateFormat: "H:i",
-                defaultDate: "17:00"
+                defaultDate: "now"
             });
         });
 
