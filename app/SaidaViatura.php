@@ -34,7 +34,7 @@ class SaidaViatura extends Model
             ['name' => 'hora_saida', 'label' => 'Hora Saída', 'query' => true, 'table' => true],
             ['name' => 'hodometro_retorno', 'label' => 'Hodômetro Retorno', 'query' => true, 'table' => true],
             ['name' => 'hora_retorno', 'label' => 'Hora Retorno', 'query' => true, 'table' => true],
-            ['name' => 'total_percorrido', 'label' => 'TOTAL PERCORRIDO (KM)', 'query' => false, 'table' => true, 'orderable' => false],
+            ['name' => 'total_percorrido', 'label' => 'PERCORRIDO (KM)', 'query' => false, 'table' => true, 'orderable' => false],
             ['name' => 'status', 'label' => 'Status', 'query' => true, 'table' => true],
             ['name' => 'created_at', 'label' => 'Criado em', 'query' => true, 'table' => true],
         ];
