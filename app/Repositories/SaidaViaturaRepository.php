@@ -136,6 +136,13 @@ class SaidaViaturaRepository extends DefaultRepository implements ISaidaViaturaR
                 }
                 $prepareFields[$field] = $value;
             }
+
+            if ($record->status == 0 && $record->hodometro_retorno !== null) {
+                $prepareFields['total_percorrido'] = max(0, $record->hodometro_retorno - $record->hodometro_saida) . ' Km';
+            } else {
+                $prepareFields['total_percorrido'] = '-';
+            }
+
             $data_arr[] = $prepareFields;
         }
         return $data_arr;

@@ -73,7 +73,7 @@ class SaidaViaturaController extends Controller
         ];
 
         $heads = $this->getHeads($this->saidaViaturaRepository->getFieldList());
-        $config = $this->getConfig($this->saidaViaturaRepository->getFieldList(), 'saidaviatura.completeList', [8, 'desc']);
+        $config = $this->getConfig($this->saidaViaturaRepository->getFieldList(), 'saidaviatura.completeList', [9, 'desc']);
 
         return view('saidaviaturas.history',[
             'heads' => $heads,

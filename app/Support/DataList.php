@@ -56,7 +56,11 @@ trait DataList
         foreach ($fieldList as $field) {
             if(is_array($field)){
                 if(!$field['table']) continue;
-                $config['columns'][] = ['data' => $field['name']];
+                $col = ['data' => $field['name']];
+                if (isset($field['orderable'])) {
+                    $col['orderable'] = $field['orderable'];
+                }
+                $config['columns'][] = $col;
             } else {
                 $config['columns'][] = $field;
             }
