@@ -111,7 +111,7 @@
                 var hodometroRetorno = parseInt($('#hodometro_retorno').val()) || 0;
                 var diferenca = hodometroRetorno - hodometroSaida;
 
-                if (diferenca > 150) {
+                if (diferenca > 100) {
                     e.preventDefault();
 
                     Swal.fire({
