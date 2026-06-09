@@ -105,6 +105,32 @@
                 dateFormat: "H:i",
                 defaultDate: "{{ now()->format('H:i') }}"
             });
+
+            $('form[name="editSaidaViatura"]').submit(function(e) {
+                var hodometroSaida = parseInt($('input[name="hodometro_saida"]').val()) || 0;
+                var hodometroRetorno = parseInt($('#hodometro_retorno').val()) || 0;
+                var diferenca = hodometroRetorno - hodometroSaida;
+
+                if (diferenca > 150) {
+                    e.preventDefault();
+
+                    Swal.fire({
+                        title: 'Atenção!',
+                        text: 'A diferença entre o Hodômetro de Retorno e o Hodômetro de Saída é de ' + diferenca + ' Km. Tem certeza que deseja Finalizar o Retorno?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#1abc9c',
+                        cancelButtonColor: '#dd4b39',
+                        confirmButtonText: 'Sim, Finalizar Retorno',
+                        cancelButtonText: 'Cancelar',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.value) {
+                            $('form[name="editSaidaViatura"]').off('submit').submit();
+                        }
+                    });
+                }
+            });
         });
 
         @if(session()->exists('pos'))
