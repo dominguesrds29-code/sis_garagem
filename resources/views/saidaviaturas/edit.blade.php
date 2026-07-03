@@ -106,15 +106,42 @@
                                     </span>
                                     @enderror
                                 </div>
+                                @if($saida_viatura->status == 0)
+                                <div class="form-group col-md-3">
+                                    <label>Hodômetro de Retorno:</label>
+                                    <input id="hodometro_retorno" value="{{ old('hodometro_retorno') ?? $saida_viatura->hodometro_retorno  }}" name="hodometro_retorno"
+                                        class="form-control @error('hodometro_retorno') is-invalid @enderror"
+                                        type="number" min="0" maxlength="6"
+                                        oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);">
+
+                                    @error('hodometro_retorno')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Hora de Retorno:</label>
+                                    <input id="hora_retorno" value="{{ old('hora_retorno') ?? $saida_viatura->hora_retorno }}" name="hora_retorno"
+                                        class="form-control flatpickr flatpickr-input @error('hora_retorno') is-invalid @enderror"
+                                        type="text" placeholder="Selecione um Horário..">
+
+                                    @error('hora_retorno')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                @endif
                             </div>
                             <div class="form-group col-md-4 offset-md-8">
-                                <button class="btn btn-success mr-2" name="only-save" value="true">
+                                <button class="btn btn-success mr-2" name="onlyEdit" value="true">
                                     <i data-feather="check"></i> Atualizar
                                 </button>
                                 <button class="btn btn-primary mr-2">
                                     <i data-feather="check"></i> Atualizar e Sair
                                 </button>
-                                <a class="btn btn-danger" href="{{ route('saidaviatura.index') }}">Sair</a>
+                                <a class="btn btn-danger" href="{{ $saida_viatura->status == 0 ? route('saidaviatura.history') : route('saidaviatura.index') }}">Sair</a>
                             </div>
                         </form>
                     </div>
@@ -143,6 +170,15 @@
                 dateFormat: "H:i",
                 defaultDate: "{{ old('hora_saida') ?? $saida_viatura->hora_saida }}",
             });
+
+            @if($saida_viatura->status == 0)
+            var f2 = flatpickr(document.getElementById('hora_retorno'), {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                defaultDate: "{{ old('hora_retorno') ?? $saida_viatura->hora_retorno }}",
+            });
+            @endif
         });
 
         @if(session()->exists('pos'))

@@ -170,15 +170,29 @@ class SaidaViaturaController extends Controller
      */
     public function edit(int $id)
     {
+        $saida_viatura = $this->saidaViaturaRepository->get($id);
+        if ($saida_viatura->status == 0 && !auth()->user()->hasRole(['admin', 'super-admin'])) {
+            abort(403, 'Acesso não autorizado.');
+        }
+
         $data = [
             'category_name' => 'saida_viatura',
             'page_name' => 'editar_saidaviatura',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
         ];
+
+        $viaturas = $this->viaturaRepository->listActive();
+        if ($saida_viatura && !$viaturas->contains('id', $saida_viatura->viatura_id)) {
+            $currentViatura = $this->viaturaRepository->get($saida_viatura->viatura_id);
+            if ($currentViatura) {
+                $viaturas->push($currentViatura);
+            }
+        }
+
         return view('saidaviaturas.edit', [
-            'saida_viatura' => $this->saidaViaturaRepository->get($id),
-            'viaturas' => $this->viaturaRepository->listActive(),
+            'saida_viatura' => $saida_viatura,
+            'viaturas' => $viaturas,
             'motoristas' => $this->motoristaRepository->list()
         ])->with($data);
     }
@@ -221,21 +235,37 @@ class SaidaViaturaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->only('id','viatura_id', 'motorista_id', 'destino', 'hodometro_saida', 'hora_saida');
+        $saida_viatura = $this->saidaViaturaRepository->get($id);
+        if ($saida_viatura->status == 0 && !auth()->user()->hasRole(['admin', 'super-admin'])) {
+            abort(403, 'Acesso não autorizado.');
+        }
+
+        $fields = ['id', 'viatura_id', 'motorista_id', 'destino', 'hodometro_saida', 'hora_saida'];
+        if ($saida_viatura->status == 0) {
+            $fields[] = 'hodometro_retorno';
+            $fields[] = 'hora_retorno';
+        }
+
+        $data = $request->only($fields);
         if(!$this->saidaViaturaRepository->isValid($data)){
             return redirect()->route('saidaviatura.edit', $id)
                 ->withErrors($this->saidaViaturaRepository->getValidateErrors())
                 ->withInput();
         }
-        $request['status'] = 1;
+
+        $request['status'] = $saida_viatura->status;
+
+        if ($saida_viatura->status == 0 && $request->has('hodometro_retorno')) {
+            $this->viaturaRepository->updateKilometragem($request->hodometro_retorno, $saida_viatura->viatura_id);
+        }
 
         $this->saidaViaturaRepository->update($request, $id);
-        if($request->has('onlyEdit')){
+        if($request->has('onlyEdit') || $request->has('only-save')){
             return redirect()->route('saidaviatura.edit', $id)
                 ->with($this->Notify->success('Registro de saída atualizado com sucesso!')->render());
         }
-        return redirect()->route('saidaviatura.index')
-            ->with($this->Message->success('Atualização Concluída', 'Registro de saída atualizado com sucesso!')->render());
+        return redirect()->route($saida_viatura->status == 0 ? 'saidaviatura.history' : 'saidaviatura.index')
+            ->with($this->Message->success('Atualização Concluída', 'Registro de saída updated com sucesso!')->render());
 
     }
 
@@ -279,7 +309,11 @@ class SaidaViaturaController extends Controller
 
     public function getDatatableCompleteList(Request $request)
     {
-        return response()->json($this->getDatatableList($request, ['status' => 0], [0,0,0,0,0,0,0,0]));
+        $buttons = [0, 0, 0, 0, 0, 0, 0, 0];
+        if (auth()->user()->hasRole(['admin', 'super-admin'])) {
+            $buttons[1] = 1; // Enable edit
+        }
+        return response()->json($this->getDatatableList($request, ['status' => 0], $buttons));
     }
 
     private function getDatatableList(Request $request, $condition, $buttons)
